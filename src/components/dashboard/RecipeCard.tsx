@@ -4,6 +4,7 @@ import { Clock, Flame, Users, Bookmark, ChefHat, Sparkles, Wine, ArrowRight } fr
 import type { Recipe } from '../../types/recipe';
 import { useVault } from '../../context/VaultContext';
 import { soundEngine } from '../../utils/soundEngine';
+import { sprinkleSalt } from '../../utils/sprinkleSalt';
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -23,6 +24,14 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, index }) => {
     e.stopPropagation();
     soundEngine.playTick(bookmarked ? 600 : 1500);
     toggleBookmark(recipe.id);
+
+    // If bookmarking, trigger punchy salt sprinkle from click coordinate
+    if (!bookmarked) {
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      const x = (rect.left + rect.width / 2) / window.innerWidth;
+      const y = (rect.top + rect.height / 2) / window.innerHeight;
+      sprinkleSalt('subtle', { origin: { x, y }, particleCount: 90 });
+    }
   };
 
   // Pastel sticker colors

@@ -8,6 +8,7 @@ import { RecipeGrid } from './components/dashboard/RecipeGrid';
 import { RecipeDrawer } from './components/modal/RecipeDrawer';
 import { CreateRecipeModal } from './components/modal/CreateRecipeModal';
 import { ChefCookingMode } from './components/modal/ChefCookingMode';
+import { FloatingMrSalt } from './components/mascot/FloatingMrSalt';
 import { VaultProvider } from './context/VaultContext';
 import { soundEngine } from './utils/soundEngine';
 
@@ -113,6 +114,9 @@ export const AppContent: React.FC = () => {
 
             {/* Hands-Free Active Chef Cooking HUD with Voice Guidance */}
             <ChefCookingMode />
+
+            {/* High-Visibility Floating "Mr. Salt" Companion */}
+            <FloatingMrSalt />
           </motion.div>
         )}
       </AnimatePresence>

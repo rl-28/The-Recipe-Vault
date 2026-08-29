@@ -15,9 +15,10 @@ import {
   Mic,
   Clock
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { useVault } from '../../context/VaultContext';
 import { soundEngine } from '../../utils/soundEngine';
+import { seasoningEngine } from '../../utils/seasoningEngine';
+import { MrSaltSvg } from '../mascot/MrSaltSvg';
 
 export const ChefCookingMode: React.FC = () => {
   const { isChefModeActive, activeChefRecipe, exitChefMode } = useVault();
@@ -64,12 +65,7 @@ export const ChefCookingMode: React.FC = () => {
             setTimerRunning(false);
             setTimerCompleted(true);
             soundEngine.playTimerAlert();
-            confetti({
-              particleCount: 85,
-              spread: 80,
-              origin: { y: 0.6 },
-              colors: ['#FFE68C', '#FFAAA6', '#BBE1FA', '#D4F1F4', '#E8D7F1'],
-            });
+            seasoningEngine.seasonFullScreen('gold-dust');
             return 0;
           }
           return prev - 1;
@@ -140,15 +136,15 @@ export const ChefCookingMode: React.FC = () => {
     soundEngine.playTick(1300);
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex((prev) => prev + 1);
+      seasoningEngine.sprinkle({
+        type: 'maldon-salt',
+        origin: { x: 0.5, y: 0.5 },
+        particleCount: 30,
+      });
     } else {
       // Completed celebration!
       soundEngine.playAccessGranted();
-      confetti({
-        particleCount: 140,
-        spread: 100,
-        origin: { y: 0.5 },
-        colors: ['#FFE68C', '#FFAAA6', '#BBE1FA', '#D4F1F4'],
-      });
+      seasoningEngine.seasonFullScreen('rainbow-seasoning');
     }
   };
 
@@ -390,6 +386,25 @@ export const ChefCookingMode: React.FC = () => {
             )}
           </motion.div>
         </main>
+
+        {/* Floating Cheering Mr. Salt in bottom left */}
+        <div
+          onClick={() => {
+            seasoningEngine.sprinkle({
+              type: 'maldon-salt',
+              origin: { x: 0.1, y: 0.85 },
+              particleCount: 25,
+            });
+          }}
+          className="fixed bottom-20 left-6 z-20 hidden md:flex items-center space-x-3 p-3 rounded-3xl bg-[#FFFDF8] border-2 border-black shadow-[3px_3px_0px_#000] cursor-pointer hover:scale-105 transition-transform"
+          title="Click Mr. Salt for a motivational sprinkle!"
+        >
+          <MrSaltSvg mood={timerCompleted ? 'celebrate' : isSpeaking ? 'think' : 'idle'} size={56} />
+          <div className="text-left font-hand">
+            <div className="text-[11px] font-extrabold text-black">Chef's Helper</div>
+            <div className="text-[10px] text-stone-600 font-bold">"You got this, Chef!"</div>
+          </div>
+        </div>
 
         {/* Bottom HUD Navigation Controls */}
         <footer className="relative z-10 w-full px-6 py-4 border-t-[2.5px] border-black bg-[#FFFDF8] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, CheckCircle2, Clock } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { soundEngine } from '../../utils/soundEngine';
+import { sprinkleSalt } from '../../utils/sprinkleSalt';
 
 interface StepTimerProps {
   durationSeconds: number;
@@ -40,12 +40,7 @@ export const StepTimer: React.FC<StepTimerProps> = ({
             setIsRunning(false);
             setIsCompleted(true);
             soundEngine.playTimerAlert();
-            confetti({
-              particleCount: 50,
-              spread: 60,
-              origin: { y: 0.7 },
-              colors: ['#FFE68C', '#FFAAA6', '#BBE1FA', '#D4F1F4'],
-            });
+            sprinkleSalt('celebration');
             return 0;
           }
           return prev - 1;

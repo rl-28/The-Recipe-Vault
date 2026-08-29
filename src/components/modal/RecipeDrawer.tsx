@@ -11,19 +11,20 @@ import {
   Sparkles, 
   Wrench, 
   ListChecks, 
-  CheckCircle,
-  Share2,
-  PlayCircle,
-  Wine,
-  Activity,
-  Copy,
-  Clock,
-  Flame,
-  Scale
+  CheckCircle, 
+  Share2, 
+  PlayCircle, 
+  Wine, 
+  Activity, 
+  Copy, 
+  Clock, 
+  Flame, 
+  Scale 
 } from 'lucide-react';
 import { useVault } from '../../context/VaultContext';
 import { StepTimer } from './StepTimer';
 import { soundEngine } from '../../utils/soundEngine';
+import { sprinkleSalt } from '../../utils/sprinkleSalt';
 
 export const RecipeDrawer: React.FC = () => {
   const { 
@@ -97,9 +98,16 @@ export const RecipeDrawer: React.FC = () => {
     setServingsMultiplier(Math.max(0.5, Math.min(8, multiplier)));
   };
 
-  const handleBookmarkToggle = () => {
+  const handleBookmarkToggle = (e: React.MouseEvent) => {
     soundEngine.playTick(bookmarked ? 600 : 1500);
     toggleBookmark(selectedRecipe.id);
+
+    if (!bookmarked) {
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      const x = (rect.left + rect.width / 2) / window.innerWidth;
+      const y = (rect.top + rect.height / 2) / window.innerHeight;
+      sprinkleSalt('subtle', { origin: { x, y }, particleCount: 95 });
+    }
   };
 
   const handleShare = () => {
@@ -124,6 +132,7 @@ export const RecipeDrawer: React.FC = () => {
     ];
     navigator.clipboard?.writeText(textLines.join('\n'));
     setCopiedList(true);
+    sprinkleSalt('subtle', { particleCount: 60 });
     setTimeout(() => setCopiedList(false), 2500);
   };
 

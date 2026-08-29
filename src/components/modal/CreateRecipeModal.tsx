@@ -4,6 +4,7 @@ import { X, Plus, Trash2, Sparkles, Wine, Activity } from 'lucide-react';
 import { useVault } from '../../context/VaultContext';
 import type { Recipe, RecipeCategory, RecipeDifficulty } from '../../types/recipe';
 import { soundEngine } from '../../utils/soundEngine';
+import { sprinkleSalt } from '../../utils/sprinkleSalt';
 
 export const CreateRecipeModal: React.FC = () => {
   const { isCreateModalOpen, setIsCreateModalOpen, addNewRecipe, setSelectedRecipe } = useVault();
@@ -119,6 +120,7 @@ export const CreateRecipeModal: React.FC = () => {
     };
 
     soundEngine.playAccessGranted();
+    sprinkleSalt('celebration');
     addNewRecipe(newRecipe);
     setIsCreateModalOpen(false);
     setSelectedRecipe(newRecipe);
