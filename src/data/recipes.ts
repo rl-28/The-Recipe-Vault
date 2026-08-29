@@ -3,10 +3,10 @@ import type { Recipe } from '../types/recipe';
 export const INITIAL_RECIPES: Recipe[] = [
   {
     id: 'vault-rc-01',
-    vaultCode: 'VLT-702-WAGYU',
+    vaultCode: 'Signature Wagyu',
     title: '72-Hour Sous-Vide Wagyu Short Rib',
-    subtitle: 'A5 Miyazaki short rib with bone marrow jus reduction & smoked oak sea salt crust',
-    category: 'Sous-Vide & Meats',
+    subtitle: 'Melt-in-your-mouth short rib with bone marrow jus reduction & smoked oak sea salt crust',
+    category: 'Main Dishes',
     difficulty: 'Master',
     prepTime: '45 Min',
     cookTime: '72 Hours',
@@ -17,7 +17,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     reviewsCount: 142,
     isClassified: true,
     imageUrl: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85',
-    origin: 'Kyoto // San Sebastián Master Vault',
+    origin: 'Kyoto Kitchen',
     chefNotes: 'The prolonged 55°C water bath transforms tough collagen into luxurious gelatin without denaturing delicate myofibrillar proteins.',
     flavorProfile: ['Rich Umami', 'Earth & Truffle', 'Velvety Fat', 'Charred Oak'],
     equipment: ['Immersion Circulator', 'Vacuum Chamber Sealer', 'Cast Iron Skillet', 'Blowtorch'],
@@ -30,9 +30,9 @@ export const INITIAL_RECIPES: Recipe[] = [
     },
     winePairing: {
       beverageName: 'Château Margaux Premier Grand Cru Classé',
-      type: 'Bordeaux Blend (Cabernet Sauvignon/Merlot)',
+      type: 'Bordeaux Blend (Cabernet/Merlot)',
       vintageOrOrigin: '2015 Bordeaux, France',
-      tastingNote: 'Silky structured tannins and deep graphite notes that effortlessly cut through the marbled A5 Wagyu intramuscular fat.',
+      tastingNote: 'Silky structured tannins and deep graphite notes that effortlessly cut through the marbled A5 Wagyu fat.',
     },
     ingredients: [
       { id: 'ing-1', name: 'A5 Miyazaki Wagyu Short Rib (bone-in)', amount: 1200, unit: 'g', notes: 'Trimmed of excess hard fat' },
@@ -51,7 +51,7 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Butchery & Dry Brine',
         instruction: 'Square the short rib block into 4 equal portions. Season with 1.2% by weight smoked salt and black garlic rub. Rest uncovered on a wire rack in the chill chamber for 3 hours.',
         timerDurationSec: 180,
-        timerLabel: 'Quick Sear Prep Timer (3m)',
+        timerLabel: 'Prep Timer (3m)',
         chefTip: 'Ensures optimal pellicle formation on the beef surface before vacuum compression.'
       },
       {
@@ -60,7 +60,7 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Vacuum Compression & Immersion',
         instruction: 'Place wagyu blocks into high-barrier vacuum pouches with herb sprigs and shoyu. Seal at 99.8% vacuum pressure. Submerge in circulator bath calibrated precisely to 55.0°C (131.0°F) for 72 hours.',
         timerDurationSec: 300,
-        timerLabel: 'Vacuum Chamber Seal Cycle (5m)',
+        timerLabel: 'Vacuum Seal Cycle (5m)',
         chefTip: 'Ensure bath water level is monitored and covered with thermal insulation spheres.'
       },
       {
@@ -75,7 +75,7 @@ export const INITIAL_RECIPES: Recipe[] = [
       {
         id: 'st-4',
         stepNumber: 4,
-        title: 'Binchotan Charcoal High-Heat Sear',
+        title: 'High-Heat Sear',
         instruction: 'Remove short rib from pouch and pat completely dry. Sear over white-hot Japanese Binchotan charcoal or in smoking hot cast iron with foaming butter for exactly 45 seconds per facet.',
         timerDurationSec: 45,
         timerLabel: 'High-Heat Sear Timer (45s)',
@@ -86,13 +86,13 @@ export const INITIAL_RECIPES: Recipe[] = [
         stepNumber: 5,
         title: 'Plating & Truffle Shaving',
         instruction: 'Carve against grain, coat with glossy marrow reduction, and generously shave fresh black winter truffle tableside. Finish with crystals of smoked Maldon salt.',
-        chefTip: 'Serve immediately on 65°C pre-warmed slate or black ceramic plates.'
+        chefTip: 'Serve immediately on warm ceramic plates.'
       }
     ]
   },
   {
     id: 'vault-rc-02',
-    vaultCode: 'VLT-108-CRUST',
+    vaultCode: 'Artisan Crust',
     title: '100% Hydration Dark Sourdough Boule',
     subtitle: 'Wild yeast levain, ancient Emmer wheat, obsidian blistered crust & open honeycomb crumb',
     category: 'Artisan Bakery',
@@ -105,7 +105,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     rating: 4.96,
     reviewsCount: 219,
     imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=85',
-    origin: 'Copenhagen // Basque Fermentary',
+    origin: 'Copenhagen Bakery',
     chefNotes: 'Managing 100% water hydration requires rigorous coil folds and strict temperature control at 26°C dough core.',
     flavorProfile: ['Lactic Sourness', 'Toasted Hazelnut', 'Caramelized Malt', 'Wild Ferment'],
     equipment: ['Cast Iron Dutch Oven', 'Proofing Banneton', 'Lame Razor', 'Digital Infrared Thermometer'],
@@ -117,7 +117,7 @@ export const INITIAL_RECIPES: Recipe[] = [
       fiberG: 4,
     },
     winePairing: {
-      beverageName: 'Domaine de la Romanée-Conti Corton-Charlemagne',
+      beverageName: 'Domaine Corton-Charlemagne',
       type: 'White Burgundy (Chardonnay)',
       vintageOrOrigin: '2018 Côte de Beaune, France',
       tastingNote: 'Crisp flint minerality and toasted brioche notes harmonize seamlessly with the caramel crust blisters.',
@@ -146,7 +146,7 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Levain & Salt Inoculation',
         instruction: 'Dimple active levain into dough using Rubaud method for 5 minutes. Rest 30 mins, then incorporate salt dissolved in remaining 50g water (bassinage technique).',
         timerDurationSec: 300,
-        timerLabel: 'Rubaud Mixing Timer (5m)',
+        timerLabel: 'Mixing Timer (5m)',
         chefTip: 'The dough will feel loose; do not panic or add raw flour.'
       },
       {
@@ -155,7 +155,7 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Lamination & Sequential Coil Folds',
         instruction: 'Perform 1 windowpane lamination followed by 4 gentle coil folds spaced 45 minutes apart in a glass proofer.',
         timerDurationSec: 2700,
-        timerLabel: 'Coil Fold Interval Timer (45m)',
+        timerLabel: 'Coil Fold Timer (45m)',
         chefTip: 'Wet your hands with warm water before each coil fold to prevent sticking.'
       },
       {
@@ -168,20 +168,20 @@ export const INITIAL_RECIPES: Recipe[] = [
       {
         id: 'st-14',
         stepNumber: 5,
-        title: 'Steam-Injection Dutch Oven Bake',
+        title: 'Dutch Oven Bake',
         instruction: 'Preheat cast iron to 250°C. Invert cold dough, score with curved lame razor at 30° angle. Bake covered with 2 ice cubes for 20 mins, then uncover at 220°C for 25 mins until dark mahogany blisters appear.',
         timerDurationSec: 1200,
-        timerLabel: 'Steam Phase Covered Bake (20m)',
+        timerLabel: 'Covered Bake (20m)',
         chefTip: 'Do not cut the loaf until the interior temperature drops below 35°C (minimum 2 hours cooling).'
       }
     ]
   },
   {
     id: 'vault-rc-03',
-    vaultCode: 'VLT-944-GOLD',
+    vaultCode: '24K Chocolate',
     title: '24K Gold Smoked Dark Chocolate Sphere',
     subtitle: 'Valrhona Guanaja 70% dome, salted yuzu caramel center & hazelnut praline crunch',
-    category: 'Pastry & Desserts',
+    category: 'Sweet Desserts',
     difficulty: 'Master',
     prepTime: '2 Hours',
     cookTime: '30 Min',
@@ -192,7 +192,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     reviewsCount: 89,
     isClassified: true,
     imageUrl: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&q=85',
-    origin: 'Paris // Zurich Secret Lab',
+    origin: 'Paris Atelier',
     chefNotes: 'Tempering chocolate to precise Beta-V crystal formation is essential for the mirror sheen and signature snap.',
     flavorProfile: ['Bittersweet Cacao', 'Tart Japanese Yuzu', 'Smoke & Vanilla', 'Toasted Hazelnut'],
     equipment: ['Silicone Hemisphere Molds', 'Digital Thermometer', 'Smoking Gun & Applewood', 'Edible Gold Leaf Tweezers'],
@@ -204,7 +204,7 @@ export const INITIAL_RECIPES: Recipe[] = [
       fiberG: 5,
     },
     winePairing: {
-      beverageName: 'Taylor Fladgate 40-Year-Old Tawny Port',
+      beverageName: 'Taylor Fladgate 40-Year Tawny Port',
       type: 'Fortified Tawny Port',
       vintageOrOrigin: 'Douro Valley, Portugal',
       tastingNote: 'Ranció walnuts, dried fig, and rich toffee accentuate the bittersweet dark cacao and citrus yuzu heart.',
@@ -226,7 +226,7 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Precision Chocolate Tempering (Beta-V)',
         instruction: 'Melt chocolate to 50°C over water bath. Cool to 34°C with continuous agitation, add Mycryo cocoa butter, and lower to 31.5°C working temperature.',
         timerDurationSec: 360,
-        timerLabel: 'Agitation Cooling Timer (6m)',
+        timerLabel: 'Cooling Agitation (6m)',
         chefTip: 'Test temper on the tip of an offset spatula; it should set matte within 2 minutes.'
       },
       {
@@ -235,7 +235,7 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Sphere Shell Casting',
         instruction: 'Line polished polycarbonate hemisphere molds with tempered chocolate. Invert to drain excess, creating a 1.2mm delicate shell. Crystallize at 16°C for 45 minutes.',
         timerDurationSec: 2700,
-        timerLabel: 'Crystallization Chamber Timer (45m)',
+        timerLabel: 'Crystallization (45m)',
         chefTip: 'Never refrigerate below 14°C to avoid condensation dulling the gloss.'
       },
       {
@@ -244,33 +244,33 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Salted Yuzu Caramel & Feuilletine Core',
         instruction: 'Caramelize sugar dry to 175°C. Deglaze with hot yuzu cream and sea salt. Layer hazelnut feuilletine crunch at the base of the chocolate sphere followed by warm yuzu caramel.',
         timerDurationSec: 480,
-        timerLabel: 'Dry Caramelization Timer (8m)',
+        timerLabel: 'Caramelization (8m)',
         chefTip: 'Cool caramel to 28°C before piping into spheres to prevent melting the shell.'
       },
       {
         id: 'st-23',
         stepNumber: 4,
-        title: 'Assembly & 24K Gold Leaf Gilding',
+        title: 'Assembly & Gold Leaf Gilding',
         instruction: 'Warm a clean stainless steel plate. Touch open hemisphere edges to melt slightly and fuse into a seamless orb. Apply 24K gold leaf with squirrel-hair gilding brush.',
         chefTip: 'Work in a draft-free room; gold leaf is airborne with minimal air movement.'
       },
       {
         id: 'st-24',
         stepNumber: 5,
-        title: 'Cold Cloche Smoke Infusion',
+        title: 'Cold Smoke Infusion',
         instruction: 'Cover sphere with glass cloche. Inject dense applewood cold smoke for 30 seconds before lifting tableside.',
         timerDurationSec: 30,
-        timerLabel: 'Smoke Infusion Timer (30s)',
+        timerLabel: 'Smoke Infusion (30s)',
         chefTip: 'Serve with a warm pitcher of dark chocolate espresso ganache to pour over and melt open.'
       }
     ]
   },
   {
     id: 'vault-rc-04',
-    vaultCode: 'VLT-330-SMOKE',
+    vaultCode: 'Smoked Cocktail',
     title: 'Smoked Rosemary & Cacao Old Fashioned',
     subtitle: 'Small-batch Rye whiskey, roasted cacao nib infused bitter & flamed rosemary cloud',
-    category: 'Signature Cocktails',
+    category: 'Cozy Drinks',
     difficulty: 'Intermediate',
     prepTime: '15 Min',
     cookTime: '5 Min',
@@ -280,7 +280,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     rating: 4.95,
     reviewsCount: 164,
     imageUrl: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=85',
-    origin: 'New Orleans // Kyoto Bar Reserve',
+    origin: 'New Orleans Lounge',
     chefNotes: 'Infusing single-origin cacao nibs directly into angostura bitters extracts dark nutty tannins that balance the high rye proof.',
     flavorProfile: ['Smoked Pine', 'Roasted Cacao', 'Charred American Oak', 'Candied Orange Peel'],
     equipment: ['Mixing Glass & Hawthorne Strainer', 'Hand Torch', 'Clear Ice Diamond Carver', 'Cocktail Smoking Cloche'],
@@ -308,10 +308,10 @@ export const INITIAL_RECIPES: Recipe[] = [
       {
         id: 'st-30',
         stepNumber: 1,
-        title: 'Glassware Prep & Rosemary Smoked Chamber',
+        title: 'Glassware Prep & Smoked Chamber',
         instruction: 'Ignite fresh rosemary sprig on a cedar plank with culinary torch. Invert crystal lowball glasses over smoking herb to trap the aromatic essential oils.',
         timerDurationSec: 40,
-        timerLabel: 'Smoke Trapping Rest Timer (40s)',
+        timerLabel: 'Smoke Trapping (40s)',
         chefTip: 'Trap smoke for at least 40 seconds to allow volatile pine terpenes to condense on the chilled crystal.'
       },
       {
@@ -320,7 +320,7 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Precision Stir & Dilution',
         instruction: 'In a heavy Yarai mixing glass, combine rye, rich Demerara syrup, and cacao bitters. Add cracked ice and stir smoothly for 45 revolutions (target: 22% dilution).',
         timerDurationSec: 30,
-        timerLabel: 'Precision Stir Timer (30s)',
+        timerLabel: 'Stirring Timer (30s)',
         chefTip: 'Keep the back of the bar spoon tight against the glass wall for silent, zero-aeration chilling.'
       },
       {
@@ -334,10 +334,10 @@ export const INITIAL_RECIPES: Recipe[] = [
   },
   {
     id: 'vault-rc-05',
-    vaultCode: 'VLT-512-CAVIAR',
+    vaultCode: 'Molecular Pearls',
     title: 'Truffle & Dashi Spherical Caviar',
     subtitle: 'Direct spherification pearls of aged kombu dashi, white truffle essence & gold leaf',
-    category: 'Modern Gastronomy',
+    category: 'Quick Bites',
     difficulty: 'Advanced',
     prepTime: '40 Min',
     cookTime: '10 Min',
@@ -348,7 +348,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     reviewsCount: 76,
     isClassified: true,
     imageUrl: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=1200&q=85',
-    origin: 'San Sebastián // Barcelona Molecular Kitchen',
+    origin: 'San Sebastián Lab',
     chefNotes: 'Sodium alginate hydration must be done 12 hours ahead with vacuum de-aeration to eliminate all micro-bubbles before droplet expulsion.',
     flavorProfile: ['Savory Glutamate', 'Intense White Truffle', 'Ocean Kelp', 'Clean Mineral Pop'],
     equipment: ['Spherification Dropper Box / Pipette', 'Precision Microgram Scale', 'Immersion Blender', 'Caviar Sieve Spoon'],
@@ -379,7 +379,7 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Alginate Hydration & De-aeration',
         instruction: 'Shear sodium alginate into flavored dashi with immersion blender. Rest in vacuum chamber to evacuate all suspended oxygen micro-bubbles.',
         timerDurationSec: 600,
-        timerLabel: 'Vacuum De-aeration Timer (10m)',
+        timerLabel: 'De-aeration Timer (10m)',
         chefTip: 'If bubbles remain, the droplets will float and deform into teardrops rather than spherical spheres.'
       },
       {
@@ -388,7 +388,7 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Calcium Bath Dropping Matrix',
         instruction: 'Fill multi-channel caviar dispenser. Release droplets from 8cm height into 1% calcium lactate bath. Allow membrane to set for 2 minutes with continuous gentle swirling.',
         timerDurationSec: 120,
-        timerLabel: 'Spherification Gel Matrix Timer (2m)',
+        timerLabel: 'Gel Matrix Timer (2m)',
         chefTip: 'Strictly monitor time: leaving spheres in calcium bath longer than 3 minutes causes core gelation.'
       },
       {
@@ -402,10 +402,10 @@ export const INITIAL_RECIPES: Recipe[] = [
   },
   {
     id: 'vault-rc-06',
-    vaultCode: 'VLT-601-CURED',
+    vaultCode: 'Koji Cured',
     title: 'Citrus & Koji-Cured Wild Hamachi',
     subtitle: 'Yellowtail kingfish cured in rice koji, blood orange ponzu, finger lime & shiso oil',
-    category: 'Fermentation & Curing',
+    category: 'Sauces & Ferments',
     difficulty: 'Advanced',
     prepTime: '1 Hour',
     cookTime: '6 Hours',
@@ -415,8 +415,8 @@ export const INITIAL_RECIPES: Recipe[] = [
     rating: 4.97,
     reviewsCount: 118,
     imageUrl: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1200&q=85',
-    origin: 'Hokkaido // Osaka Ferment Lab',
-    chefNotes: 'Rice koji enzymes (protease and amylase) break down fish proteins into sweet amino acid complexes in just 6 hours.',
+    origin: 'Hokkaido Kitchen',
+    chefNotes: 'Rice koji enzymes break down fish proteins into sweet amino acid complexes in just 6 hours.',
     flavorProfile: ['Sweet Koji Amino', 'Floral Citrus', 'Crisp Salinity', 'Herbaceous Shiso'],
     equipment: ['Yanagiba Sashimi Knife', 'Silica Curing Paper', 'Tweezers', 'Aerator for Shiso Oil'],
     nutrition: {
@@ -447,13 +447,13 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Koji Enzyme Rub & Wrap',
         instruction: 'Coat clean hamachi loin with sugar-salt cure and crushed rice koji. Wrap tightly in porous moisture-wicking sheet and chill at 2°C for 6 hours.',
         timerDurationSec: 3600,
-        timerLabel: 'Enzymatic Cure Monitor (60m check)',
+        timerLabel: 'Curing Check (60m)',
         chefTip: 'The koji produces deep natural sweetness and tightens the flesh structure.'
       },
       {
         id: 'st-51',
         stepNumber: 2,
-        title: 'Yanagiba Precision Slicing',
+        title: 'Precision Slicing',
         instruction: 'Wipe off surface koji with cold sake cloth. Cut 3mm translucent shingled slices at a 45-degree angle in a single continuous pulling stroke.',
         chefTip: 'Do not saw the knife back and forth; one smooth pull preserves the delicate cell walls.'
       },
@@ -468,10 +468,10 @@ export const INITIAL_RECIPES: Recipe[] = [
   },
   {
     id: 'vault-rc-07',
-    vaultCode: 'VLT-880-RAMEN',
+    vaultCode: 'Ramen Master',
     title: '48-Hour Tonkotsu & Black Garlic Mayu Ramen',
     subtitle: 'Collagen-rich Kurobuta pork bone broth, hand-rolled low-hydration noodles & torched chashu',
-    category: 'Sous-Vide & Meats',
+    category: 'Main Dishes',
     difficulty: 'Master',
     prepTime: '2 Hours',
     cookTime: '48 Hours',
@@ -482,7 +482,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     reviewsCount: 312,
     isClassified: true,
     imageUrl: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1200&q=85',
-    origin: 'Fukuoka // Secret Ramen Guild',
+    origin: 'Fukuoka Kitchen',
     chefNotes: 'A relentless rolling boil for 48 hours emulsifies marrow fat with water into an opaque, silky broth with over 15% gelatin density.',
     flavorProfile: ['Deep Collagen Umami', 'Charred Black Garlic', 'Rich Pork Marrow', 'Springy Alkaline Wheat'],
     equipment: ['Commercial Stockpot (30L)', 'Rolling Pin & Pasta Machine', 'Refractometer (Brix Meter)', 'Torch'],
@@ -493,7 +493,7 @@ export const INITIAL_RECIPES: Recipe[] = [
       fatG: 42,
     },
     winePairing: {
-      beverageName: 'Echigo Koshihikari Rice Lager & Iwai Tradition Whisky Highball',
+      beverageName: 'Echigo Koshihikari Rice Lager & Whisky Highball',
       type: 'Craft Beer / Japanese Whisky',
       vintageOrOrigin: 'Niigata & Nagano, Japan',
       tastingNote: 'Crisp carbonation and subtle malt sweetness refresh the palate between rich spoonfuls of collagen broth.',
@@ -501,7 +501,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     ingredients: [
       { id: 'ing-60', name: 'Kurobuta Pork Femur & Trotter Bones', amount: 2500, unit: 'g', notes: 'Blanched and scraped' },
       { id: 'ing-61', name: 'Kurobuta Pork Belly Block (for Chashu)', amount: 800, unit: 'g' },
-      { id: 'ing-62', name: 'House Black Garlic Mayu (Toasted Sesame Oil & Charred Garlic)', amount: 60, unit: 'ml' },
+      { id: 'ing-62', name: 'House Black Garlic Mayu (Sesame Oil & Charred Garlic)', amount: 60, unit: 'ml' },
       { id: 'ing-63', name: 'Alkaline Kansui Noodle Dough (34% Hydration)', amount: 480, unit: 'g' },
       { id: 'ing-64', name: 'Ajitsuke Tamago (6-Minute Cured Eggs)', amount: 4, unit: 'pcs' },
       { id: 'ing-65', name: 'Kombu & Katsuobushi Tare Seasoning', amount: 120, unit: 'ml' },
@@ -510,10 +510,10 @@ export const INITIAL_RECIPES: Recipe[] = [
       {
         id: 'st-60',
         stepNumber: 1,
-        title: 'Bone Blanching & Marrow Cleansing',
-        instruction: 'Bring pork bones to a rapid boil for 15 minutes. Drain, scrub away dark coagulated blood under cold running water, and crack femurs to expose marrow cavities.',
+        title: 'Bone Blanching & Cleansing',
+        instruction: 'Bring pork bones to a rapid boil for 15 minutes. Drain, scrub away dark sediment under cold running water, and crack femurs to expose marrow cavities.',
         timerDurationSec: 900,
-        timerLabel: 'Blanching Cleanse Timer (15m)',
+        timerLabel: 'Cleanse Timer (15m)',
         chefTip: 'Thorough cleaning is the sole secret to producing a creamy white broth without bitter sediment.'
       },
       {
@@ -522,16 +522,16 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: '48-Hour Emulsion Rolling Boil',
         instruction: 'Cover cleaned bones with spring water. Maintain high rolling boil for 48 hours, replenishing water as evaporated, until broth measures 11.5° Brix on refractometer.',
         timerDurationSec: 3600,
-        timerLabel: 'Brix Density Monitor (60m check)',
+        timerLabel: 'Density Monitor (60m check)',
         chefTip: 'Fat cannot emulsify at a gentle simmer; keep the boil turbulent to bind water and lipids.'
       },
       {
         id: 'st-62',
         stepNumber: 3,
-        title: 'Noodle Rolling & Flash Boil',
+        title: 'Noodle Flash Boil',
         instruction: 'Cut alkaline dough into 1.2mm straight Hakata-style strands. Flash boil in bubbling water for precisely 48 seconds (Barikata stiffness).',
         timerDurationSec: 48,
-        timerLabel: 'Barikata Noodle Boil Timer (48s)',
+        timerLabel: 'Noodle Boil Timer (48s)',
         chefTip: 'Vigorously shake noodle basket 5 times over drain to remove all excess starch water.'
       },
       {
@@ -545,10 +545,10 @@ export const INITIAL_RECIPES: Recipe[] = [
   },
   {
     id: 'vault-rc-08',
-    vaultCode: 'VLT-224-MATCHA',
+    vaultCode: 'Matcha Cake',
     title: 'Matcha Mille-Crêpe with Yuzu Gelée',
     subtitle: 'Twenty whisper-thin Uji matcha crêpes, whipped white chocolate diplomat & yuzu agar pearls',
-    category: 'Pastry & Desserts',
+    category: 'Sweet Desserts',
     difficulty: 'Advanced',
     prepTime: '1.5 Hours',
     cookTime: '45 Min',
@@ -558,7 +558,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     rating: 4.97,
     reviewsCount: 195,
     imageUrl: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=1200&q=85',
-    origin: 'Kyoto // Uji Imperial Tea Master',
+    origin: 'Kyoto Tea Guild',
     chefNotes: 'Ceremonial grade Uji matcha must be sifted and folded below 30°C to preserve vivid chlorophyll emerald hue.',
     flavorProfile: ['Grassy Umami', 'Creamy White Cacao', 'Zesty Yuzu', 'Delicate Vanilla'],
     equipment: ['Non-stick 20cm Crêpe Pan', 'Palette Spatula', 'Fine Mesh Sieve', 'Rotating Cake Turntable'],
@@ -569,7 +569,7 @@ export const INITIAL_RECIPES: Recipe[] = [
       fatG: 24,
     },
     winePairing: {
-      beverageName: 'Château d’Yquem Sauternes Premier Cru Supérieur',
+      beverageName: 'Château d’Yquem Sauternes Premier Cru',
       type: 'Noble Rot Dessert Wine',
       vintageOrOrigin: '2016 Sauternes, France',
       tastingNote: 'Honeyed apricot, beeswax, and saffron notes enhance the vegetal elegance of ceremonial grade matcha.',
@@ -589,7 +589,7 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: 'Silk Matcha Crêpe Batter',
         instruction: 'Whisk eggs, warm milk, melted butter, and sifted matcha into flour until velvety smooth. Strain through fine mesh twice and rest in refrigerator for 2 hours.',
         timerDurationSec: 7200,
-        timerLabel: 'Batter Hydration Rest Timer (2h)',
+        timerLabel: 'Batter Rest Timer (2h)',
         chefTip: 'Resting relaxes gluten, allowing the crêpes to cook paper-thin without tearing.'
       },
       {
@@ -598,13 +598,13 @@ export const INITIAL_RECIPES: Recipe[] = [
         title: '20-Layer Crêpe Cooking',
         instruction: 'In a 20cm pan over medium-low heat, pour 35ml batter, swirl instantly, and cook for 60 seconds. Flip gently and cook for 15 seconds. Stack on parchment to cool.',
         timerDurationSec: 60,
-        timerLabel: 'Single Crêpe Cook Timer (60s)',
+        timerLabel: 'Crêpe Cook Timer (60s)',
         chefTip: 'Wipe pan with buttered cloth every 3 crêpes for uniform translucence.'
       },
       {
         id: 'st-72',
         stepNumber: 3,
-        title: 'White Chocolate Diplomat Cream & Assembly',
+        title: 'White Chocolate Diplomat Cream',
         instruction: 'Melt white chocolate into vanilla custard base. Fold in stiff whipped cream. Place first crêpe on turntable, spread 30g cream with palette knife, repeat for all 20 layers.',
         chefTip: 'Keep cream chilled to 4°C so layers do not slide during construction.'
       },
@@ -612,9 +612,9 @@ export const INITIAL_RECIPES: Recipe[] = [
         id: 'st-73',
         stepNumber: 4,
         title: 'Garnish & Chilled Setting',
-        instruction: 'Chill assembled cake for 4 hours. Dust top layer heavily with ceremonial matcha. Top with yuzu gelée pearls and gold leaf accents before slicing with a hot knife.',
+        instruction: 'Chill assembled cake for 4 hours. Dust top layer heavily with ceremonial matcha. Top with yuzu gelée pearls before slicing with a hot knife.',
         timerDurationSec: 14400,
-        timerLabel: 'Cake Solidification Rest Timer (4h)',
+        timerLabel: 'Solidification (4h)',
         chefTip: 'Dip slicing knife into boiling water and wipe dry between each clean cut.'
       }
     ]

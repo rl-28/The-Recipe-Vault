@@ -68,7 +68,7 @@ export const ChefCookingMode: React.FC = () => {
               particleCount: 85,
               spread: 80,
               origin: { y: 0.6 },
-              colors: ['#F59E0B', '#10B981', '#FB923C', '#8B5CF6'],
+              colors: ['#FFE68C', '#FFAAA6', '#BBE1FA', '#D4F1F4', '#E8D7F1'],
             });
             return 0;
           }
@@ -141,13 +141,13 @@ export const ChefCookingMode: React.FC = () => {
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex((prev) => prev + 1);
     } else {
-      // Completed all steps celebration!
+      // Completed celebration!
       soundEngine.playAccessGranted();
       confetti({
         particleCount: 140,
         spread: 100,
         origin: { y: 0.5 },
-        colors: ['#F59E0B', '#10B981', '#38BDF8', '#8B5CF6'],
+        colors: ['#FFE68C', '#FFAAA6', '#BBE1FA', '#D4F1F4'],
       });
     }
   };
@@ -193,24 +193,24 @@ export const ChefCookingMode: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 bg-[#FAF7F2] flex flex-col justify-between text-stone-900 overflow-hidden font-sans select-none"
+        className="fixed inset-0 z-50 bg-[#FAF7F0] flex flex-col justify-between text-black overflow-hidden font-sans select-none"
       >
         {/* Top Header HUD Bar */}
-        <header className="relative z-10 w-full px-6 py-4 border-b border-stone-200/80 bg-white/90 backdrop-blur-md flex items-center justify-between shadow-xs">
+        <header className="relative z-10 w-full px-6 py-4 border-b-[2.5px] border-black bg-[#FFFDF8] flex items-center justify-between shadow-xs">
           <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shadow-xs">
-              <ChefHat className="w-5 h-5 text-amber-600" />
+            <div className="w-11 h-11 rounded-2xl bg-[#FFE68C] border-2 border-black flex items-center justify-center shadow-[2px_2px_0px_#000]">
+              <ChefHat className="w-6 h-6 text-black stroke-[2.2]" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold tracking-wide">
-                  CHEF KITCHEN HUD
+                <span className="px-2.5 py-0.5 rounded-lg bg-[#FFE68C] border border-black text-[11px] font-hand font-extrabold text-black">
+                  CHEF KITCHEN HUD 🍳
                 </span>
-                <span className="text-xs text-stone-500 font-medium">
+                <span className="text-xs font-doodle font-bold text-stone-600">
                   {activeChefRecipe.category}
                 </span>
               </div>
-              <h1 className="text-base font-bold text-stone-900 truncate max-w-md mt-0.5">
+              <h1 className="text-base font-hand font-extrabold text-black truncate max-w-md mt-0.5">
                 {activeChefRecipe.title}
               </h1>
             </div>
@@ -225,28 +225,28 @@ export const ChefCookingMode: React.FC = () => {
                 setAutoVoice(next);
                 if (!next) soundEngine.stopSpeaking();
               }}
-              className={`flex items-center space-x-2 px-3.5 py-2 rounded-xl border text-xs font-semibold transition-all cursor-pointer shadow-xs ${
+              className={`flex items-center space-x-2 px-3.5 py-2 rounded-2xl border-2 border-black text-xs font-hand font-bold transition-all cursor-pointer shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
                 autoVoice
-                  ? 'bg-amber-50 text-amber-800 border-amber-300'
-                  : 'bg-white text-stone-500 border-stone-200'
+                  ? 'bg-[#FFE68C] text-black'
+                  : 'bg-white text-stone-500'
               }`}
               title="Toggle Auto-Voice reading on step change"
             >
-              <Mic className={`w-3.5 h-3.5 ${autoVoice ? 'text-amber-600 animate-pulse' : ''}`} />
+              <Mic className={`w-3.5 h-3.5 ${autoVoice ? 'text-black animate-pulse' : ''}`} />
               <span className="hidden sm:inline">Voice: {autoVoice ? 'ON' : 'OFF'}</span>
             </button>
 
             {/* Manual Speak Step Button */}
             <button
               onClick={toggleSpeech}
-              className={`p-2.5 rounded-xl border transition-all cursor-pointer shadow-xs ${
+              className={`p-2.5 rounded-2xl border-2 border-black transition-all cursor-pointer shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
                 isSpeaking
-                  ? 'bg-amber-500 text-white border-amber-600 shadow-md animate-pulse'
-                  : 'bg-white text-stone-700 border-stone-200 hover:border-amber-400 hover:text-amber-600'
+                  ? 'bg-[#FFAAA6] text-black animate-pulse'
+                  : 'bg-white text-black hover:bg-[#FFE68C]'
               }`}
               title={isSpeaking ? 'Stop Voice (V)' : 'Read Step Aloud (V)'}
             >
-              {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-amber-600" />}
+              {isSpeaking ? <VolumeX className="w-4 h-4 stroke-[2.5]" /> : <Volume2 className="w-4 h-4 stroke-[2.5]" />}
             </button>
 
             {/* Exit Chef Mode Button */}
@@ -256,16 +256,16 @@ export const ChefCookingMode: React.FC = () => {
                 soundEngine.playTick(600);
                 exitChefMode();
               }}
-              className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-200 text-stone-700 text-xs font-medium transition-all cursor-pointer"
+              className="flex items-center space-x-1.5 px-4 py-2 rounded-2xl bg-[#FFAAA6] border-2 border-black text-black text-xs font-hand font-extrabold shadow-[2px_2px_0px_#000] hover:bg-rose-300 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4 stroke-[2.5]" />
               <span className="hidden sm:inline">Exit (Esc)</span>
             </button>
           </div>
         </header>
 
         {/* Phase Progress Bar at Top */}
-        <div className="relative z-10 w-full bg-white/80 border-b border-stone-200/80 px-6 py-2.5 flex items-center justify-between shadow-xs">
+        <div className="relative z-10 w-full bg-[#FAF7F0] border-b-2 border-black px-6 py-2.5 flex items-center justify-between">
           <div className="flex items-center space-x-2 overflow-x-auto no-scrollbar py-1">
             {steps.map((s, idx) => {
               const isCurrent = idx === currentStepIndex;
@@ -277,79 +277,79 @@ export const ChefCookingMode: React.FC = () => {
                     soundEngine.stopSpeaking();
                     setCurrentStepIndex(idx);
                   }}
-                  className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer whitespace-nowrap shadow-xs ${
+                  className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-2xl text-xs font-hand font-bold transition-all cursor-pointer whitespace-nowrap border-2 border-black shadow-[1.5px_1.5px_0px_#000] ${
                     isCurrent
-                      ? 'bg-amber-500 text-white font-bold shadow-md shadow-amber-500/20 scale-105'
+                      ? 'bg-[#FFE68C] text-black scale-105 shadow-[2px_2px_0px_#000]'
                       : isDone
-                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium'
-                      : 'bg-white text-stone-600 border border-stone-200 hover:border-stone-300'
+                      ? 'bg-[#D4F1F4] text-black'
+                      : 'bg-white text-stone-600'
                   }`}
                 >
-                  <span className="font-bold">Step {s.stepNumber}</span>
+                  <span className="font-extrabold">Step {s.stepNumber}</span>
                   <span className="hidden md:inline font-normal">• {s.title}</span>
                 </button>
               );
             })}
           </div>
 
-          <div className="text-xs text-amber-700 font-bold pl-4 whitespace-nowrap">
+          <div className="text-xs font-hand font-extrabold text-black pl-4 whitespace-nowrap bg-[#FFE68C] px-3 py-1 rounded-xl border border-black shadow-[1px_1px_0px_#000]">
             {Math.round(progressPercent)}% Done
           </div>
         </div>
 
         {/* Main Center Cooking Workspace */}
-        <main className="relative z-10 flex-1 max-w-5xl mx-auto w-full px-6 py-8 flex flex-col justify-center items-center">
+        <main className="relative z-10 flex-1 max-w-4xl mx-auto w-full px-6 py-8 flex flex-col justify-center items-center">
           <motion.div
             key={currentStep.id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.3 }}
             className="w-full flex flex-col items-center text-center space-y-6"
           >
             {/* Step Phase Number Badge */}
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold tracking-wide">
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-2xl bg-[#FFE68C] border-2 border-black text-black text-xs font-hand font-extrabold shadow-[2px_2px_0px_#000]">
+              <Sparkles className="w-4 h-4 stroke-[2.5]" />
               <span>STEP {currentStep.stepNumber} OF {steps.length}</span>
             </div>
 
             {/* Giant Step Title */}
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight leading-tight max-w-3xl">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-hand font-extrabold text-black tracking-tight leading-tight max-w-3xl">
               {currentStep.title}
             </h2>
 
             {/* Giant Readable Instruction Typography */}
-            <p className="text-lg sm:text-2xl text-stone-700 font-normal leading-relaxed max-w-3xl px-6 py-4 rounded-3xl bg-white border border-stone-200 shadow-md">
+            <p className="text-lg sm:text-2xl text-stone-800 font-doodle font-bold leading-relaxed max-w-3xl px-8 py-5 rounded-3xl bg-[#FFFDF8] border-[2.5px] border-black shadow-[4px_4px_0px_#000]">
               {currentStep.instruction}
             </p>
 
             {/* Chef Tip Callout */}
             {currentStep.chefTip && (
-              <div className="max-w-2xl px-5 py-3.5 rounded-2xl bg-amber-50/90 border border-amber-200 text-left flex items-start space-x-3 text-xs sm:text-sm text-amber-950 shadow-xs">
-                <Sparkles className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div className="max-w-2xl px-5 py-3 rounded-2xl bg-[#FFE68C] border-2 border-black text-left flex items-start space-x-3 text-xs sm:text-sm text-black shadow-[3px_3px_0px_#000]">
+                <Sparkles className="w-4 h-4 stroke-[2.5] flex-shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-amber-800 mr-2">Chef's Advice:</span>
-                  <span className="italic">{currentStep.chefTip}</span>
+                  <span className="font-hand font-extrabold mr-2">Chef's Advice:</span>
+                  <span className="font-doodle font-bold italic">{currentStep.chefTip}</span>
                 </div>
               </div>
             )}
 
-            {/* Embedded Large Step Countdown Timer (if configured) */}
+            {/* Embedded Step Countdown Timer */}
             {timerTotal > 0 && (
-              <div className="mt-4 p-6 rounded-3xl bg-white border border-stone-200 shadow-md flex flex-col items-center space-y-3 w-full max-w-md">
-                <div className="flex items-center space-x-2 text-xs font-semibold text-stone-500">
-                  <Clock className="w-4 h-4 text-amber-500" />
+              <div className="mt-4 p-6 rounded-3xl bg-[#FFFDF8] border-[2.5px] border-black shadow-[4px_4px_0px_#000] flex flex-col items-center space-y-3 w-full max-w-md">
+                <div className="flex items-center space-x-2 text-xs font-hand font-extrabold text-black">
+                  <Clock className="w-4 h-4 stroke-[2.5]" />
                   <span>{currentStep.timerLabel || 'Step Countdown'}</span>
                 </div>
 
                 {/* Giant Digital Readout */}
                 <div
-                  className={`text-5xl sm:text-6xl font-mono font-bold tracking-wider px-6 py-2 rounded-2xl transition-all ${
+                  className={`text-5xl sm:text-6xl font-mono font-bold tracking-wider px-8 py-2 rounded-2xl border-2 border-black shadow-[3px_3px_0px_#000] transition-all ${
                     timerCompleted
-                      ? 'text-emerald-700 bg-emerald-50 border border-emerald-200 animate-bounce'
+                      ? 'bg-[#D4F1F4] text-black animate-bounce'
                       : timerRunning
-                      ? 'text-amber-700 bg-amber-50 border border-amber-300 shadow-sm'
-                      : 'text-stone-800 bg-stone-50 border border-stone-200'
+                      ? 'bg-[#FFE68C] text-black'
+                      : 'bg-white text-black'
                   }`}
                 >
                   {formatTimer(timerSeconds)}
@@ -359,10 +359,10 @@ export const ChefCookingMode: React.FC = () => {
                 <div className="flex items-center space-x-3 pt-2">
                   <button
                     onClick={handleToggleTimer}
-                    className={`flex items-center space-x-2 px-6 py-3 rounded-full font-sans text-xs font-bold transition-all cursor-pointer shadow-md ${
+                    className={`flex items-center space-x-2 px-6 py-3 rounded-2xl font-hand font-extrabold text-sm border-2 border-black shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer ${
                       timerRunning
-                        ? 'bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200'
-                        : 'bg-amber-500 text-white hover:bg-amber-600 shadow-amber-500/25'
+                        ? 'bg-[#FFAAA6] text-black hover:bg-rose-300'
+                        : 'bg-[#FFE68C] text-black hover:bg-amber-300'
                     }`}
                   >
                     {timerRunning ? (
@@ -380,10 +380,10 @@ export const ChefCookingMode: React.FC = () => {
 
                   <button
                     onClick={handleResetTimer}
-                    className="p-3 rounded-full bg-stone-100 text-stone-600 hover:text-stone-900 border border-stone-200 transition-all cursor-pointer"
+                    className="p-3 rounded-2xl bg-white text-black border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-[#FAF7F0] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
                     title="Reset Timer (R)"
                   >
-                    <RotateCcw className="w-4 h-4" />
+                    <RotateCcw className="w-4 h-4 stroke-[2.5]" />
                   </button>
                 </div>
               </div>
@@ -392,23 +392,23 @@ export const ChefCookingMode: React.FC = () => {
         </main>
 
         {/* Bottom HUD Navigation Controls */}
-        <footer className="relative z-10 w-full px-6 py-4 border-t border-stone-200/80 bg-white/90 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
+        <footer className="relative z-10 w-full px-6 py-4 border-t-[2.5px] border-black bg-[#FFFDF8] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
           {/* Keyboard shortcuts reminder */}
-          <div className="hidden lg:flex items-center space-x-4 text-xs font-medium text-stone-500">
+          <div className="hidden lg:flex items-center space-x-4 text-xs font-hand font-bold text-black">
             <span className="flex items-center space-x-1">
-              <kbd className="px-2 py-0.5 rounded-md bg-stone-100 border border-stone-200 text-stone-700">← / P</kbd>
+              <kbd className="px-2 py-0.5 rounded-md bg-[#FFE68C] border border-black">← / P</kbd>
               <span>Prev</span>
             </span>
             <span className="flex items-center space-x-1">
-              <kbd className="px-2 py-0.5 rounded-md bg-stone-100 border border-stone-200 text-stone-700">→</kbd>
+              <kbd className="px-2 py-0.5 rounded-md bg-[#FFE68C] border border-black">→</kbd>
               <span>Next</span>
             </span>
             <span className="flex items-center space-x-1">
-              <kbd className="px-2 py-0.5 rounded-md bg-stone-100 border border-stone-200 text-stone-700">Space</kbd>
+              <kbd className="px-2 py-0.5 rounded-md bg-[#FFE68C] border border-black">Space</kbd>
               <span>Timer</span>
             </span>
             <span className="flex items-center space-x-1">
-              <kbd className="px-2 py-0.5 rounded-md bg-stone-100 border border-stone-200 text-stone-700">V</kbd>
+              <kbd className="px-2 py-0.5 rounded-md bg-[#FFE68C] border border-black">V</kbd>
               <span>Voice</span>
             </span>
           </div>
@@ -418,29 +418,29 @@ export const ChefCookingMode: React.FC = () => {
             <button
               onClick={handlePrevStep}
               disabled={currentStepIndex === 0}
-              className="flex items-center space-x-2 px-6 py-3 rounded-full bg-white border border-stone-200 hover:bg-stone-50 text-stone-700 disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer font-sans text-xs font-bold shadow-xs"
+              className="flex items-center space-x-2 px-6 py-3 rounded-2xl bg-white border-2 border-black text-black disabled:opacity-30 disabled:pointer-events-none transition-all cursor-pointer font-hand font-extrabold text-xs shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-4 h-4 stroke-[3]" />
               <span>Previous Step</span>
             </button>
 
             <button
               onClick={handleNextStep}
-              className={`flex items-center space-x-2 px-8 py-3 rounded-full font-sans text-xs font-bold transition-all cursor-pointer shadow-md ${
+              className={`flex items-center space-x-2 px-8 py-3 rounded-2xl font-hand font-extrabold text-xs border-2 border-black transition-all cursor-pointer shadow-[3px_3px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
                 isFinalStep
-                  ? 'bg-emerald-500 text-white hover:bg-emerald-600 shadow-emerald-500/25'
-                  : 'bg-amber-500 text-white hover:bg-amber-600 shadow-amber-500/25'
+                  ? 'bg-[#D4F1F4] text-black hover:bg-cyan-200'
+                  : 'bg-[#FFE68C] text-black hover:bg-amber-300'
               }`}
             >
               {isFinalStep ? (
                 <>
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Finish Recipe</span>
+                  <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />
+                  <span>Finish Recipe 🎉</span>
                 </>
               ) : (
                 <>
                   <span>Next Step</span>
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 stroke-[3]" />
                 </>
               )}
             </button>

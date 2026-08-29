@@ -1,17 +1,19 @@
 export type RecipeCategory = 
-  | 'All Archives'
-  | 'Sous-Vide & Meats'
+  | 'All Recipes'
+  | 'Main Dishes'
   | 'Artisan Bakery'
-  | 'Pastry & Desserts'
-  | 'Signature Cocktails'
-  | 'Modern Gastronomy'
-  | 'Fermentation & Curing';
+  | 'Sweet Desserts'
+  | 'Cozy Drinks'
+  | 'Quick Bites'
+  | 'Sauces & Ferments';
 
 export type RecipeDifficulty = 'Master' | 'Advanced' | 'Intermediate';
 
 export type UnitSystem = 'metric' | 'imperial';
 
 export type SortOption = 'rating' | 'prepTime' | 'calories' | 'difficulty' | 'name';
+
+export type SidebarTab = 'all' | 'collections' | 'planner' | 'atelier';
 
 export interface Ingredient {
   id: string;
@@ -51,7 +53,7 @@ export interface Recipe {
   vaultCode: string;
   title: string;
   subtitle: string;
-  category: Exclude<RecipeCategory, 'All Archives'>;
+  category: Exclude<RecipeCategory, 'All Recipes'>;
   difficulty: RecipeDifficulty;
   prepTime: string;
   cookTime: string;

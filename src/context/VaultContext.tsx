@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
-import type { Recipe, RecipeCategory, RecipeDifficulty, UnitSystem, SortOption } from '../types/recipe';
+import type { Recipe, RecipeCategory, RecipeDifficulty, UnitSystem, SortOption, SidebarTab } from '../types/recipe';
 import { INITIAL_RECIPES } from '../data/recipes';
 
 interface VaultContextType {
@@ -16,6 +16,8 @@ interface VaultContextType {
   unitSystem: UnitSystem;
   setUnitSystem: (system: UnitSystem) => void;
   toggleUnitSystem: () => void;
+  activeSidebarTab: SidebarTab;
+  setActiveSidebarTab: (tab: SidebarTab) => void;
   bookmarkedIds: string[];
   toggleBookmark: (id: string) => void;
   isBookmarked: (id: string) => boolean;
@@ -48,11 +50,12 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return INITIAL_RECIPES;
   });
 
-  const [selectedCategory, setSelectedCategory] = useState<RecipeCategory>('All Archives');
+  const [selectedCategory, setSelectedCategory] = useState<RecipeCategory>('All Recipes');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedDifficulty, setSelectedDifficulty] = useState<'All' | RecipeDifficulty>('All');
   const [sortBy, setSortBy] = useState<SortOption>('rating');
   const [showBookmarksOnly, setShowBookmarksOnly] = useState<boolean>(false);
+  const [activeSidebarTab, setActiveSidebarTab] = useState<SidebarTab>('all');
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
 
@@ -124,7 +127,7 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setActiveChefRecipe(null);
   };
 
-  // Helper to extract minutes from strings like "45 Min", "2 Hours", "24 Hours"
+  // Helper to extract minutes from strings
   const parseTimeToMinutes = (timeStr: string): number => {
     const lower = timeStr.toLowerCase();
     let mins = 0;
@@ -137,9 +140,20 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // Filtered and Sorted recipes
   const filteredRecipes = useMemo(() => {
+    const isCollectionsTab = activeSidebarTab === 'collections';
+    const isAtelierTab = activeSidebarTab === 'atelier';
+
     const filtered = recipes.filter((r) => {
+      // Sidebar Tab check
+      if (isCollectionsTab && !bookmarkedIds.includes(r.id)) {
+        return false;
+      }
+      if (isAtelierTab && !r.isClassified) {
+        return false;
+      }
+
       // Category check
-      if (selectedCategory !== 'All Archives' && r.category !== selectedCategory) {
+      if (selectedCategory !== 'All Recipes' && r.category !== selectedCategory) {
         return false;
       }
 
@@ -153,7 +167,7 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         return false;
       }
 
-      // Search query check (title, subtitle, ingredients, equipment, origin, flavor profile)
+      // Search query check
       if (searchQuery.trim() !== '') {
         const q = searchQuery.toLowerCase();
         const inTitle = r.title.toLowerCase().includes(q);
@@ -192,7 +206,7 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
       return 0;
     });
-  }, [recipes, selectedCategory, selectedDifficulty, showBookmarksOnly, bookmarkedIds, searchQuery, sortBy]);
+  }, [recipes, activeSidebarTab, selectedCategory, selectedDifficulty, showBookmarksOnly, bookmarkedIds, searchQuery, sortBy]);
 
   return (
     <VaultContext.Provider
@@ -210,6 +224,8 @@ export const VaultProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         unitSystem,
         setUnitSystem,
         toggleUnitSystem,
+        activeSidebarTab,
+        setActiveSidebarTab,
         bookmarkedIds,
         toggleBookmark,
         isBookmarked,

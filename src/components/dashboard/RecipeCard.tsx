@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Clock, Flame, Users, Bookmark, ChefHat, ChevronRight, Wine, Sparkles } from 'lucide-react';
+import { Clock, Flame, Users, Bookmark, ChefHat, Sparkles, Wine, ArrowRight } from 'lucide-react';
 import type { Recipe } from '../../types/recipe';
 import { useVault } from '../../context/VaultContext';
 import { soundEngine } from '../../utils/soundEngine';
@@ -12,32 +12,7 @@ interface RecipeCardProps {
 
 export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, index }) => {
   const { toggleBookmark, isBookmarked, setSelectedRecipe } = useVault();
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
   const bookmarked = isBookmarked(recipe.id);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    // Specular light coordinates
-    cardRef.current.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
-    cardRef.current.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
-
-    // 3D Tilt calculation
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
-
-    setTilt({ rotateX, rotateY });
-  };
-
-  const handleMouseLeave = () => {
-    setTilt({ rotateX: 0, rotateY: 0 });
-  };
 
   const handleCardClick = () => {
     soundEngine.playTick(1300);
@@ -50,140 +25,125 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, index }) => {
     toggleBookmark(recipe.id);
   };
 
-  // Difficulty badge colors in soft pastels
-  const difficultyStyle = {
-    Master: 'bg-amber-50 text-amber-800 border-amber-200/80',
-    Advanced: 'bg-sky-50 text-sky-800 border-sky-200/80',
-    Intermediate: 'bg-emerald-50 text-emerald-800 border-emerald-200/80',
+  // Pastel sticker colors
+  const difficultyColors = {
+    Master: 'bg-[#FFAAA6] text-black',
+    Advanced: 'bg-[#BBE1FA] text-black',
+    Intermediate: 'bg-[#D4F1F4] text-black',
   }[recipe.difficulty];
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="perspective-1000"
+      transition={{ duration: 0.35, delay: index * 0.05 }}
     >
       <div
-        ref={cardRef}
         onClick={handleCardClick}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
         onMouseEnter={() => soundEngine.playTick(800)}
-        style={{
-          transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale3d(1, 1, 1)`,
-          transition: 'transform 0.15s ease-out, box-shadow 0.3s ease',
-        }}
-        className="group relative flex flex-col h-full rounded-3xl bg-white p-4 border border-stone-100 shadow-md hover:shadow-xl hover:-translate-y-1 cursor-pointer overflow-hidden transition-all duration-300 vault-card-specular select-none"
+        className="group relative flex flex-col h-full bg-[#FFFDF8] border-[2.5px] border-black rounded-3xl p-4 shadow-[4px_4px_0px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#000] transition-all duration-200 cursor-pointer select-none font-sans"
       >
-        {/* Top Image Container with Rounded Corners */}
-        <div className="relative w-full h-56 overflow-hidden rounded-2xl bg-stone-100">
+        {/* Food Image Container with Black Outline */}
+        <div className="relative w-full h-52 overflow-hidden rounded-2xl border-2 border-black bg-stone-100">
           <img
             src={recipe.imageUrl}
             alt={recipe.title}
             loading="lazy"
-            className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-700 ease-out"
+            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
           />
 
-          {/* Subtle Vignette Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
-
           {/* Top Badges: Category & Bookmark */}
-          <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-            <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-sans font-semibold text-stone-800 shadow-xs">
+          <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
+            <span className="px-3 py-1 rounded-xl bg-[#FFE68C] border-2 border-black text-xs font-hand font-bold text-black shadow-[2px_2px_0px_#000]">
               {recipe.category}
             </span>
 
             <button
               onClick={handleBookmarkClick}
-              className={`p-2 rounded-full backdrop-blur-md transition-all duration-200 cursor-pointer shadow-xs ${
+              className={`p-2 rounded-full border-2 border-black transition-all duration-150 cursor-pointer shadow-[2px_2px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
                 bookmarked
-                  ? 'bg-amber-500 text-white scale-110 shadow-md'
-                  : 'bg-white/90 text-stone-600 hover:text-amber-600 hover:bg-white'
+                  ? 'bg-[#FFAAA6] text-black scale-110'
+                  : 'bg-white text-black hover:bg-[#FFE68C]'
               }`}
               title={bookmarked ? 'Remove from Saved' : 'Save Recipe'}
-              aria-label="Bookmark Recipe"
             >
-              <Bookmark className={`w-3.5 h-3.5 ${bookmarked ? 'fill-current' : ''}`} />
+              <Bookmark className={`w-3.5 h-3.5 stroke-[2.5] ${bookmarked ? 'fill-current' : ''}`} />
             </button>
           </div>
 
-          {/* Bottom of Image: Origin & Difficulty */}
-          <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-            <span className="text-xs font-sans text-white/90 font-medium tracking-wide flex items-center space-x-1 drop-shadow-sm">
-              <ChefHat className="w-3.5 h-3.5 text-amber-300" />
+          {/* Bottom Badges on Image */}
+          <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between">
+            <span className="px-2.5 py-0.5 rounded-lg bg-white/95 border-2 border-black text-[11px] font-hand font-bold text-black shadow-[1.5px_1.5px_0px_#000] flex items-center space-x-1 truncate max-w-[60%]">
+              <ChefHat className="w-3.5 h-3.5 text-black stroke-[2.5]" />
               <span className="truncate">{recipe.origin}</span>
             </span>
 
-            <span
-              className={`px-2.5 py-0.5 rounded-full border text-[11px] font-sans font-semibold tracking-wide ${difficultyStyle}`}
-            >
+            <span className={`px-2.5 py-0.5 rounded-lg border-2 border-black text-[11px] font-hand font-bold shadow-[1.5px_1.5px_0px_#000] ${difficultyColors}`}>
               {recipe.difficulty}
             </span>
           </div>
         </div>
 
-        {/* Content Section */}
+        {/* Recipe Content Details */}
         <div className="flex flex-col flex-1 pt-4 justify-between space-y-3">
           <div>
-            <h3 className="text-lg font-bold text-stone-900 group-hover:text-amber-600 transition-colors duration-200 line-clamp-1 font-sans">
+            <h3 className="text-base sm:text-lg font-hand font-extrabold text-black group-hover:text-amber-900 transition-colors line-clamp-1">
               {recipe.title}
             </h3>
 
-            <p className="mt-1 text-xs text-stone-500 line-clamp-2 leading-relaxed font-normal">
+            <p className="mt-1 text-xs font-doodle font-bold text-stone-600 line-clamp-2 leading-relaxed">
               {recipe.subtitle}
             </p>
           </div>
 
           {/* Flavor Profile Tags & Wine Badge */}
           <div className="flex flex-wrap gap-1.5 pt-1">
-            {recipe.flavorProfile.slice(0, 3).map((flavor, idx) => (
+            {recipe.flavorProfile.slice(0, 2).map((flavor, idx) => (
               <span
                 key={idx}
-                className="px-2.5 py-1 rounded-lg bg-stone-50 border border-stone-100 text-[11px] font-sans text-stone-600"
+                className="px-2 py-0.5 rounded-lg bg-[#FAF7F0] border border-black text-[11px] font-hand font-bold text-black shadow-[1px_1px_0px_#000]"
               >
-                {flavor}
+                🏷️ {flavor}
               </span>
             ))}
             {recipe.winePairing && (
-              <span className="px-2 py-0.5 rounded-lg bg-purple-50 border border-purple-100 text-[11px] font-sans text-purple-700 flex items-center space-x-1">
+              <span className="px-2 py-0.5 rounded-lg bg-[#E8D7F1] border border-black text-[11px] font-hand font-bold text-black shadow-[1px_1px_0px_#000] flex items-center space-x-1">
                 <Wine className="w-2.5 h-2.5" />
                 <span>Pairing</span>
               </span>
             )}
           </div>
 
-          {/* Metadata Footer: Prep, Cook Time, Yield */}
-          <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs font-sans text-stone-500">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-1 font-medium" title="Cooking Time">
-                <Clock className="w-3.5 h-3.5 text-amber-500" />
+          {/* Footer Metadata: Time, Energy, Servings & Action */}
+          <div className="pt-3 border-t-2 border-black flex items-center justify-between text-xs font-hand font-bold text-black">
+            <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-1" title="Cook Time">
+                <Clock className="w-3.5 h-3.5 stroke-[2.5]" />
                 <span>{recipe.cookTime}</span>
               </div>
-              <div className="flex items-center space-x-1 font-medium" title="Calories">
-                <Flame className="w-3.5 h-3.5 text-orange-500" />
+              <div className="flex items-center space-x-1" title="Calories">
+                <Flame className="w-3.5 h-3.5 text-rose-500 stroke-[2.5]" />
                 <span>{recipe.calories} kcal</span>
               </div>
-              <div className="flex items-center space-x-1 font-medium" title="Servings">
-                <Users className="w-3.5 h-3.5 text-stone-400" />
+              <div className="flex items-center space-x-1" title="Yield">
+                <Users className="w-3.5 h-3.5 stroke-[2.5]" />
                 <span>{recipe.servings}P</span>
               </div>
             </div>
 
-            {/* View Recipe Action */}
-            <div className="flex items-center text-amber-600 text-xs font-semibold group-hover:translate-x-1 transition-transform duration-200">
-              <span>View</span>
-              <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+            <div className="flex items-center space-x-1 text-black font-extrabold group-hover:translate-x-1 transition-transform">
+              <span>Cook</span>
+              <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
             </div>
           </div>
         </div>
 
-        {/* Signature Ribbon */}
+        {/* Signature Ribbon Tag */}
         {recipe.isClassified && (
-          <div className="absolute top-2 right-2 pointer-events-none">
-            <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold shadow-xs">
+          <div className="absolute -top-2 -right-2 pointer-events-none">
+            <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-[#FFE68C] border-2 border-black text-[10px] font-hand font-extrabold text-black shadow-[2px_2px_0px_#000]">
               <Sparkles className="w-2.5 h-2.5" />
-              <span>Signature</span>
+              <span>Chef's Choice</span>
             </span>
           </div>
         )}

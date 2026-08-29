@@ -3,82 +3,72 @@
 
 @layer base {
   * {
-    border-color: rgba(229, 231, 235, 0.8);
+    border-color: #000000;
   }
 
   body {
-    background-color: #FCFAF7;
-    color: #1C1917;
-    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+    background-color: #FAF7F0;
+    color: #1E293B;
+    font-family: 'Shantell Sans', 'Patrick Hand', sans-serif;
   }
 }
 
-/* Custom Webkit Scrollbars for fresh light feel */
+/* Hand-drawn scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F8F5EE;
+  background: #FAF7F0;
+  border-left: 2px solid #000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #E2D9CC;
-  border-radius: 4px;
+  background: #FFE68C;
+  border: 2px solid #000;
+  border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #F59E0B;
+  background: #FFAAA6;
 }
 
-/* Light Glassmorphic Panel Styles */
-.vault-glass {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(231, 229, 228, 0.8);
-  box-shadow: 0 4px 20px -2px rgba(120, 53, 15, 0.04);
+/* Hand-Drawn Card Class */
+.doodle-card {
+  background-color: #FFFDF8;
+  border: 2.5px solid #000;
+  border-radius: 24px;
+  box-shadow: 4px 4px 0px 0px #000;
+  transition: all 0.2s ease;
 }
 
-.vault-glass-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(245, 245, 244, 0.9);
-  box-shadow: 0 10px 25px -5px rgba(120, 53, 15, 0.05), 0 8px 10px -6px rgba(120, 53, 15, 0.03);
+.doodle-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #000;
 }
 
-.vault-card-specular {
-  position: relative;
-  overflow: hidden;
+/* Hand-Drawn Button Utility */
+.doodle-btn {
+  border: 2px solid #000;
+  border-radius: 16px;
+  box-shadow: 2px 2px 0px 0px #000;
+  transition: all 0.15s ease;
 }
 
-.vault-card-specular::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(251, 146, 60, 0.12), transparent 45%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
+.doodle-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px 0px #000;
 }
 
-.vault-card-specular:hover::after {
-  opacity: 1;
+.doodle-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px 0px #000;
 }
 
-/* Honey Gold Gradient */
-.text-gold-gradient {
-  background: linear-gradient(135deg, #D97706 0%, #F59E0B 50%, #EA580C 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Warm subtle ambient vignette */
-.bg-radial-vignette {
-  background: radial-gradient(circle at center, transparent 30%, rgba(245, 239, 230, 0.5) 100%);
+/* Subtle Cozy Kitchen Graph / Dot Grid */
+.kitchen-grid-pattern {
+  background-color: #FAF7F0;
+  background-image: radial-gradient(#D6CEBA 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
 }

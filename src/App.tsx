@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { VaultScene } from './components/vault3d/VaultScene';
 import { HeroLanding } from './components/landing/HeroLanding';
+import { Sidebar } from './components/dashboard/Sidebar';
 import { VaultHeader } from './components/dashboard/VaultHeader';
 import { RecipeGrid } from './components/dashboard/RecipeGrid';
 import { RecipeDrawer } from './components/modal/RecipeDrawer';
@@ -33,13 +34,13 @@ export const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#FCFAF7] text-stone-900 overflow-x-hidden font-sans select-none">
+    <div className="relative min-h-screen bg-[#FAF7F0] kitchen-grid-pattern text-slate-900 overflow-x-hidden font-sans select-none">
       {/* ============================================================ */}
-      {/* 1. 3D WEBGL HERO CANVAS (Always active / responsive)          */}
+      {/* 1. 3D WEBGL HERO CANVAS (Active on landing)                   */}
       {/* ============================================================ */}
       <div
         className={`fixed inset-0 transition-opacity duration-1000 ${
-          viewMode === 'interior' ? 'opacity-20 pointer-events-none' : 'opacity-100'
+          viewMode === 'interior' ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
       >
         <VaultScene
@@ -49,12 +50,7 @@ export const AppContent: React.FC = () => {
       </div>
 
       {/* ============================================================ */}
-      {/* 2. AMBIENT BACKGROUND GLOW & NOISE VIGNETTE                   */}
-      {/* ============================================================ */}
-      <div className="fixed inset-0 pointer-events-none bg-radial-vignette opacity-50 z-0"></div>
-
-      {/* ============================================================ */}
-      {/* 3. MAIN APPLICATION VIEWS (Landing vs Inner Vault)            */}
+      {/* 2. MAIN APPLICATION VIEWS (Landing vs Inner Workspace)        */}
       {/* ============================================================ */}
       <AnimatePresence mode="wait">
         {viewMode === 'landing' ? (
@@ -62,8 +58,8 @@ export const AppContent: React.FC = () => {
             key="landing-view"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, filter: 'blur(10px)' }}
-            transition={{ duration: 0.8 }}
+            exit={{ opacity: 0, filter: 'blur(8px)' }}
+            transition={{ duration: 0.6 }}
             className="relative z-10 min-h-screen flex flex-col justify-between"
           >
             <HeroLanding
@@ -74,32 +70,40 @@ export const AppContent: React.FC = () => {
         ) : (
           <motion.div
             key="interior-view"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="relative z-10 min-h-screen flex flex-col justify-between"
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="relative z-10 min-h-screen flex"
           >
-            <div>
-              {/* Header with Search, Units, Sort and Navigation */}
-              <VaultHeader onLockVault={handleLockVault} />
+            {/* STICKY LEFT SIDEBAR */}
+            <Sidebar onLockVault={handleLockVault} />
 
-              {/* Recipe Cards Grid */}
-              <RecipeGrid />
-            </div>
+            {/* MAIN WORKSPACE CONTENT AREA */}
+            <div className="flex-1 min-h-screen flex flex-col justify-between px-4 sm:px-8 py-2 max-w-7xl mx-auto w-full">
+              <div>
+                {/* Header with Search, Category Tabs, and Filters */}
+                <VaultHeader />
 
-            {/* Dashboard Footer */}
-            <footer className="w-full border-t border-stone-200/80 py-8 mt-12 text-center text-xs font-sans text-stone-500 bg-white/40 backdrop-blur-sm">
-              <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div className="flex items-center space-x-2">
-                  <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                  <span className="font-semibold text-stone-700">The Recipe Vault • Culinary Sanctuary</span>
-                </div>
-                <div>
-                  Handcrafted with joy, precision, and love for cooking
-                </div>
+                {/* Main Recipe Grid or Meal Planner Board */}
+                <main className="mt-4">
+                  <RecipeGrid />
+                </main>
               </div>
-            </footer>
+
+              {/* Cozy Illustrated Kitchen Footer */}
+              <footer className="w-full border-t-2 border-black py-6 mt-12 text-center text-xs font-hand font-bold text-stone-600 bg-white/60 rounded-3xl border-2 border-black shadow-[3px_3px_0px_#000] mb-6">
+                <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+                  <div className="flex items-center space-x-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#FFE68C] border border-black"></span>
+                    <span className="font-extrabold text-black">The Recipe Vault • Hand-Drawn Kitchen Sanctuary</span>
+                  </div>
+                  <div>
+                    Storybook Recipes // Illustrated with Love & Joy 🍳
+                  </div>
+                </div>
+              </footer>
+            </div>
 
             {/* Slide-in Interactive Recipe Drawer */}
             <RecipeDrawer />

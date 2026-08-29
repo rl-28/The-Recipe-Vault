@@ -44,7 +44,7 @@ export const StepTimer: React.FC<StepTimerProps> = ({
               particleCount: 50,
               spread: 60,
               origin: { y: 0.7 },
-              colors: ['#F59E0B', '#10B981', '#FB923C'],
+              colors: ['#FFE68C', '#FFAAA6', '#BBE1FA', '#D4F1F4'],
             });
             return 0;
           }
@@ -84,15 +84,15 @@ export const StepTimer: React.FC<StepTimerProps> = ({
   const strokeDashoffset = 100 - progress * 100;
 
   return (
-    <div className="mt-3 p-3.5 rounded-2xl bg-amber-50/50 border border-amber-200/60 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
+    <div className="mt-3 p-3.5 rounded-2xl bg-[#FAF7F0] border-2 border-black flex flex-col sm:flex-row items-center justify-between gap-3 shadow-[2px_2px_0px_#000] font-sans">
       {/* Label and Status */}
       <div className="flex items-center space-x-3 w-full sm:w-auto">
         {/* Circular Progress Indicator */}
         <div className="relative w-10 h-10 flex-shrink-0 flex items-center justify-center">
           <svg className="w-10 h-10 transform -rotate-90" viewBox="0 0 36 36">
             <path
-              className="text-stone-200"
-              strokeWidth="3.5"
+              className="text-stone-300"
+              strokeWidth="4"
               stroke="currentColor"
               fill="none"
               d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -103,7 +103,7 @@ export const StepTimer: React.FC<StepTimerProps> = ({
               } transition-all duration-300`}
               strokeDasharray="100, 100"
               strokeDashoffset={strokeDashoffset}
-              strokeWidth="3.5"
+              strokeWidth="4"
               strokeLinecap="round"
               stroke="currentColor"
               fill="none"
@@ -112,18 +112,18 @@ export const StepTimer: React.FC<StepTimerProps> = ({
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
             {isCompleted ? (
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 animate-bounce" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 animate-bounce stroke-[2.5]" />
             ) : (
-              <Clock className="w-4 h-4 text-amber-600" />
+              <Clock className="w-4 h-4 text-black stroke-[2.5]" />
             )}
           </div>
         </div>
 
         <div>
-          <div className="text-xs font-bold text-stone-800">
+          <div className="text-xs font-hand font-extrabold text-black">
             {label}
           </div>
-          <div className="text-[11px] text-stone-500">
+          <div className="text-[11px] font-doodle font-bold text-stone-600">
             Step {stepNumber} Timer
           </div>
         </div>
@@ -133,12 +133,12 @@ export const StepTimer: React.FC<StepTimerProps> = ({
       <div className="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
         {/* Time Digits */}
         <div
-          className={`font-mono text-base sm:text-lg font-bold px-3 py-1 rounded-xl border ${
+          className={`font-mono text-base font-bold px-3 py-1 rounded-xl border-2 border-black shadow-[1.5px_1.5px_0px_#000] ${
             isCompleted
-              ? 'text-emerald-700 border-emerald-200 bg-emerald-50 animate-pulse'
+              ? 'bg-[#D4F1F4] text-black animate-pulse'
               : isRunning
-              ? 'text-amber-700 border-amber-300 bg-amber-50 shadow-xs'
-              : 'text-stone-700 border-stone-200 bg-white'
+              ? 'bg-[#FFE68C] text-black'
+              : 'bg-white text-black'
           }`}
         >
           {formatTime(timeLeft)}
@@ -148,10 +148,10 @@ export const StepTimer: React.FC<StepTimerProps> = ({
         <div className="flex items-center space-x-1.5">
           <button
             onClick={togglePlayPause}
-            className={`p-2 rounded-xl text-xs font-semibold flex items-center space-x-1 transition-all duration-200 cursor-pointer shadow-xs ${
+            className={`p-2 rounded-xl border-2 border-black transition-all cursor-pointer shadow-[1.5px_1.5px_0px_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
               isRunning
-                ? 'bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200'
-                : 'bg-amber-500 text-white hover:bg-amber-600 shadow-amber-500/20'
+                ? 'bg-[#FFAAA6] text-black hover:bg-rose-300'
+                : 'bg-[#FFE68C] text-black hover:bg-amber-300'
             }`}
             title={isRunning ? 'Pause Timer' : 'Start Timer'}
           >
@@ -164,10 +164,10 @@ export const StepTimer: React.FC<StepTimerProps> = ({
 
           <button
             onClick={handleReset}
-            className="p-2 rounded-xl bg-white text-stone-600 hover:text-stone-900 border border-stone-200 transition-all cursor-pointer shadow-xs"
+            className="p-2 rounded-xl bg-white text-black border-2 border-black shadow-[1.5px_1.5px_0px_#000] hover:bg-stone-100 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
             title="Reset Timer"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
+            <RotateCcw className="w-3.5 h-3.5 stroke-[2.5]" />
           </button>
         </div>
       </div>
