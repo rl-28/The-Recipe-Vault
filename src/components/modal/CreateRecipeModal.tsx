@@ -63,10 +63,10 @@ export const CreateRecipeModal: React.FC = () => {
       {
         id: String(Date.now()),
         stepNumber: nextStepNum,
-        title: `Protocol Phase ${nextStepNum}`,
+        title: `Step ${nextStepNum}`,
         instruction: '',
         timerDurationSec: 300,
-        timerLabel: `Phase ${nextStepNum} Timer`,
+        timerLabel: `Step ${nextStepNum} Timer`,
       },
     ]);
   };
@@ -86,7 +86,7 @@ export const CreateRecipeModal: React.FC = () => {
       id: `custom-rc-${Date.now()}`,
       vaultCode: randomVaultId,
       title,
-      subtitle: subtitle || 'Private classified culinary protocol',
+      subtitle: subtitle || 'Custom recipe protocol',
       category,
       difficulty,
       prepTime,
@@ -111,7 +111,7 @@ export const CreateRecipeModal: React.FC = () => {
       winePairing: beverageName ? {
         beverageName,
         type: wineType,
-        vintageOrOrigin: 'Chef Private Cellar',
+        vintageOrOrigin: 'Private Reserve',
         tastingNote: 'Balanced acidity and rich profile perfectly paired with this protocol.',
       } : undefined,
       ingredients: ingredients.filter((ing) => ing.name.trim() !== ''),
@@ -133,7 +133,7 @@ export const CreateRecipeModal: React.FC = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleClose}
-          className="fixed inset-0 bg-vault-950/85 backdrop-blur-lg"
+          className="fixed inset-0 bg-stone-900/40 backdrop-blur-sm"
         />
 
         {/* Modal Window */}
@@ -141,27 +141,27 @@ export const CreateRecipeModal: React.FC = () => {
           initial={{ scale: 0.92, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.92, opacity: 0, y: 20 }}
-          className="relative w-full max-w-3xl rounded-2xl bg-vault-900 border border-vault-gold-500/30 shadow-2xl p-6 sm:p-8 z-10 my-8 max-h-[90vh] overflow-y-auto font-sans text-neutral-100"
+          className="relative w-full max-w-3xl rounded-3xl bg-[#FCFAF7] border border-stone-200 shadow-2xl p-6 sm:p-8 z-10 my-8 max-h-[90vh] overflow-y-auto font-sans text-stone-900"
         >
           {/* Close Button */}
           <button
             onClick={handleClose}
-            className="absolute top-5 right-5 p-2 rounded-lg bg-vault-950 border border-white/10 text-vault-steel hover:text-white transition-all cursor-pointer"
+            className="absolute top-5 right-5 p-2.5 rounded-full bg-white border border-stone-200 text-stone-500 hover:text-stone-900 transition-all cursor-pointer shadow-xs"
           >
             <X className="w-5 h-5" />
           </button>
 
           {/* Header */}
           <div className="flex items-center space-x-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-vault-950 border border-vault-gold-500/40 flex items-center justify-center shadow-neon-gold">
-              <Sparkles className="w-5 h-5 text-vault-gold-400" />
+            <div className="w-11 h-11 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center shadow-xs">
+              <Sparkles className="w-5 h-5 text-amber-600" />
             </div>
             <div>
-              <h2 className="text-xl font-bold font-sans text-white uppercase tracking-wide">
-                Deposit New Vault Protocol
+              <h2 className="text-xl font-bold font-sans text-stone-900">
+                Create New Recipe
               </h2>
-              <p className="text-xs font-mono text-vault-steel">
-                ENCRYPTED ARCHIVE INGESTION // LEVEL 1 CHEF
+              <p className="text-xs text-stone-500">
+                Add your custom culinary creation to the vault
               </p>
             </div>
           </div>
@@ -170,7 +170,7 @@ export const CreateRecipeModal: React.FC = () => {
             {/* Primary Fields */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
-                <label className="block text-xs font-mono text-vault-steel uppercase mb-1.5">
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-1.5">
                   Recipe Title *
                 </label>
                 <input
@@ -179,12 +179,12 @@ export const CreateRecipeModal: React.FC = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="e.g. 48-Hour Cured Duck Confit & Quince Glaze"
-                  className="w-full px-4 py-2.5 rounded-xl bg-vault-950 border border-white/10 text-sm text-white focus:outline-none focus:border-vault-gold-500 font-sans"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-200 text-sm text-stone-900 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 font-sans shadow-xs"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-mono text-vault-steel uppercase mb-1.5">
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-1.5">
                   Subtitle / Summary
                 </label>
                 <input
@@ -192,18 +192,18 @@ export const CreateRecipeModal: React.FC = () => {
                   value={subtitle}
                   onChange={(e) => setSubtitle(e.target.value)}
                   placeholder="e.g. Slow cooked in rendered fat with rosemary infusion"
-                  className="w-full px-4 py-2.5 rounded-xl bg-vault-950 border border-white/10 text-sm text-white focus:outline-none focus:border-vault-gold-500 font-sans"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-200 text-sm text-stone-900 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 font-sans shadow-xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-vault-steel uppercase mb-1.5">
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-1.5">
                   Category
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value as Exclude<RecipeCategory, 'All Archives'>)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-vault-950 border border-white/10 text-sm text-white focus:outline-none focus:border-vault-gold-500 cursor-pointer"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-200 text-sm text-stone-900 focus:outline-none focus:border-amber-400 cursor-pointer shadow-xs"
                 >
                   <option value="Sous-Vide & Meats">Sous-Vide & Meats</option>
                   <option value="Artisan Bakery">Artisan Bakery</option>
@@ -215,13 +215,13 @@ export const CreateRecipeModal: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-vault-steel uppercase mb-1.5">
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-1.5">
                   Difficulty Level
                 </label>
                 <select
                   value={difficulty}
                   onChange={(e) => setDifficulty(e.target.value as RecipeDifficulty)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-vault-950 border border-white/10 text-sm text-white focus:outline-none focus:border-vault-gold-500 cursor-pointer"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-200 text-sm text-stone-900 focus:outline-none focus:border-amber-400 cursor-pointer shadow-xs"
                 >
                   <option value="Master">Master</option>
                   <option value="Advanced">Advanced</option>
@@ -230,7 +230,7 @@ export const CreateRecipeModal: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-vault-steel uppercase mb-1.5">
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-1.5">
                   Prep Time
                 </label>
                 <input
@@ -238,12 +238,12 @@ export const CreateRecipeModal: React.FC = () => {
                   value={prepTime}
                   onChange={(e) => setPrepTime(e.target.value)}
                   placeholder="e.g. 30 Min"
-                  className="w-full px-4 py-2.5 rounded-xl bg-vault-950 border border-white/10 text-sm text-white focus:outline-none focus:border-vault-gold-500"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-200 text-sm text-stone-900 focus:outline-none focus:border-amber-400 shadow-xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-vault-steel uppercase mb-1.5">
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-1.5">
                   Cook Time
                 </label>
                 <input
@@ -251,126 +251,126 @@ export const CreateRecipeModal: React.FC = () => {
                   value={cookTime}
                   onChange={(e) => setCookTime(e.target.value)}
                   placeholder="e.g. 4 Hours"
-                  className="w-full px-4 py-2.5 rounded-xl bg-vault-950 border border-white/10 text-sm text-white focus:outline-none focus:border-vault-gold-500"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-200 text-sm text-stone-900 focus:outline-none focus:border-amber-400 shadow-xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-vault-steel uppercase mb-1.5">
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-1.5">
                   Estimated Calories (kcal)
                 </label>
                 <input
                   type="number"
                   value={calories}
                   onChange={(e) => setCalories(Number(e.target.value))}
-                  className="w-full px-4 py-2.5 rounded-xl bg-vault-950 border border-white/10 text-sm text-white focus:outline-none focus:border-vault-gold-500"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-200 text-sm text-stone-900 focus:outline-none focus:border-amber-400 shadow-xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-vault-steel uppercase mb-1.5">
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-1.5">
                   Base Yield (Servings)
                 </label>
                 <input
                   type="number"
                   value={servings}
                   onChange={(e) => setServings(Number(e.target.value))}
-                  className="w-full px-4 py-2.5 rounded-xl bg-vault-950 border border-white/10 text-sm text-white focus:outline-none focus:border-vault-gold-500"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-200 text-sm text-stone-900 focus:outline-none focus:border-amber-400 shadow-xs"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-mono text-vault-steel uppercase mb-1.5">
-                  Chef Origin / Atelier
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-1.5">
+                  Chef Origin / Inspiration
                 </label>
                 <input
                   type="text"
                   value={origin}
                   onChange={(e) => setOrigin(e.target.value)}
-                  placeholder="e.g. Copenhagen // Secret Reserve"
-                  className="w-full px-4 py-2.5 rounded-xl bg-vault-950 border border-white/10 text-sm text-white focus:outline-none focus:border-vault-gold-500"
+                  placeholder="e.g. Copenhagen // Home Kitchen"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-200 text-sm text-stone-900 focus:outline-none focus:border-amber-400 shadow-xs"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-mono text-vault-steel uppercase mb-1.5">
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-1.5">
                   Photo URL
                 </label>
                 <input
                   type="url"
                   value={imageUrl}
                   onChange={(e) => setImageUrl(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-vault-950 border border-white/10 text-sm text-white focus:outline-none focus:border-vault-gold-500"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-200 text-sm text-stone-900 focus:outline-none focus:border-amber-400 shadow-xs"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-mono text-vault-steel uppercase mb-1.5">
-                  Master Chef Advice & Molecular Note
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-1.5">
+                  Chef Advice & Technique Notes
                 </label>
                 <textarea
                   rows={2}
                   value={chefNotes}
                   onChange={(e) => setChefNotes(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-vault-950 border border-white/10 text-sm text-white focus:outline-none focus:border-vault-gold-500"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-200 text-sm text-stone-900 focus:outline-none focus:border-amber-400 shadow-xs"
                 />
               </div>
             </div>
 
             {/* Sommelier & Macronutrient Details */}
-            <div className="pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="pt-4 border-t border-stone-200 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <div className="flex items-center space-x-2 text-xs font-mono text-purple-400 uppercase mb-2">
+                <div className="flex items-center space-x-2 text-xs font-bold text-purple-800 uppercase mb-2">
                   <Wine className="w-3.5 h-3.5" />
-                  <span>Sommelier Pairing</span>
+                  <span>Drink Pairing</span>
                 </div>
                 <input
                   type="text"
-                  placeholder="Wine / Spirit Pairing Name"
+                  placeholder="Wine / Beverage Name"
                   value={beverageName}
                   onChange={(e) => setBeverageName(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-vault-950 border border-white/10 text-xs text-white mb-2"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-stone-200 text-xs text-stone-900 mb-2 shadow-xs"
                 />
                 <input
                   type="text"
                   placeholder="Type / Origin"
                   value={wineType}
                   onChange={(e) => setWineType(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-vault-950 border border-white/10 text-xs text-white"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-stone-200 text-xs text-stone-900 shadow-xs"
                 />
               </div>
 
               <div>
-                <div className="flex items-center space-x-2 text-xs font-mono text-vault-cyan uppercase mb-2">
+                <div className="flex items-center space-x-2 text-xs font-bold text-emerald-800 uppercase mb-2">
                   <Activity className="w-3.5 h-3.5" />
                   <span>Macronutrient Breakdown (g)</span>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   <div>
-                    <label className="text-[10px] font-mono text-vault-steel">Protein (g)</label>
+                    <label className="text-[10px] text-stone-500 font-medium">Protein (g)</label>
                     <input
                       type="number"
                       value={proteinG}
                       onChange={(e) => setProteinG(Number(e.target.value))}
-                      className="w-full px-2 py-1.5 rounded bg-vault-950 border border-white/10 text-xs text-white"
+                      className="w-full px-2 py-1.5 rounded-xl bg-white border border-stone-200 text-xs text-stone-900 shadow-xs"
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-mono text-vault-steel">Carbs (g)</label>
+                    <label className="text-[10px] text-stone-500 font-medium">Carbs (g)</label>
                     <input
                       type="number"
                       value={carbsG}
                       onChange={(e) => setCarbsG(Number(e.target.value))}
-                      className="w-full px-2 py-1.5 rounded bg-vault-950 border border-white/10 text-xs text-white"
+                      className="w-full px-2 py-1.5 rounded-xl bg-white border border-stone-200 text-xs text-stone-900 shadow-xs"
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-mono text-vault-steel">Fat (g)</label>
+                    <label className="text-[10px] text-stone-500 font-medium">Fat (g)</label>
                     <input
                       type="number"
                       value={fatG}
                       onChange={(e) => setFatG(Number(e.target.value))}
-                      className="w-full px-2 py-1.5 rounded bg-vault-950 border border-white/10 text-xs text-white"
+                      className="w-full px-2 py-1.5 rounded-xl bg-white border border-stone-200 text-xs text-stone-900 shadow-xs"
                     />
                   </div>
                 </div>
@@ -378,15 +378,15 @@ export const CreateRecipeModal: React.FC = () => {
             </div>
 
             {/* Ingredients Builder */}
-            <div className="pt-4 border-t border-white/10">
+            <div className="pt-4 border-t border-stone-200">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-semibold font-mono uppercase text-vault-gold-400">
+                <h3 className="text-sm font-bold text-stone-900">
                   Ingredients Formula
                 </h3>
                 <button
                   type="button"
                   onClick={handleAddIngredient}
-                  className="flex items-center space-x-1 px-3 py-1 rounded-lg bg-vault-800 text-xs font-mono text-neutral-200 border border-white/10 hover:border-vault-gold-500/40 cursor-pointer"
+                  className="flex items-center space-x-1 px-3.5 py-1.5 rounded-xl bg-amber-50 text-xs font-semibold text-amber-800 border border-amber-200 hover:bg-amber-100 cursor-pointer shadow-xs"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add Ingredient</span>
@@ -405,7 +405,7 @@ export const CreateRecipeModal: React.FC = () => {
                         updated[idx].name = e.target.value;
                         setIngredients(updated);
                       }}
-                      className="flex-1 px-3 py-2 rounded-lg bg-vault-950 border border-white/10 text-xs text-white"
+                      className="flex-1 px-3.5 py-2 rounded-xl bg-white border border-stone-200 text-xs text-stone-900 shadow-xs"
                     />
                     <input
                       type="number"
@@ -416,7 +416,7 @@ export const CreateRecipeModal: React.FC = () => {
                         updated[idx].amount = Number(e.target.value);
                         setIngredients(updated);
                       }}
-                      className="w-20 px-3 py-2 rounded-lg bg-vault-950 border border-white/10 text-xs text-white"
+                      className="w-20 px-3 py-2 rounded-xl bg-white border border-stone-200 text-xs text-stone-900 shadow-xs"
                     />
                     <input
                       type="text"
@@ -427,12 +427,12 @@ export const CreateRecipeModal: React.FC = () => {
                         updated[idx].unit = e.target.value;
                         setIngredients(updated);
                       }}
-                      className="w-20 px-3 py-2 rounded-lg bg-vault-950 border border-white/10 text-xs text-white"
+                      className="w-20 px-3 py-2 rounded-xl bg-white border border-stone-200 text-xs text-stone-900 shadow-xs"
                     />
                     <button
                       type="button"
                       onClick={() => handleRemoveIngredient(idx)}
-                      className="p-2 text-red-400 hover:text-red-300"
+                      className="p-2 text-rose-500 hover:text-rose-700"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -442,32 +442,32 @@ export const CreateRecipeModal: React.FC = () => {
             </div>
 
             {/* Steps Builder */}
-            <div className="pt-4 border-t border-white/10">
+            <div className="pt-4 border-t border-stone-200">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-semibold font-mono uppercase text-vault-gold-400">
-                  Step-by-Step Protocol & Timers
+                <h3 className="text-sm font-bold text-stone-900">
+                  Step Instructions & Timers
                 </h3>
                 <button
                   type="button"
                   onClick={handleAddStep}
-                  className="flex items-center space-x-1 px-3 py-1 rounded-lg bg-vault-800 text-xs font-mono text-neutral-200 border border-white/10 hover:border-vault-gold-500/40 cursor-pointer"
+                  className="flex items-center space-x-1 px-3.5 py-1.5 rounded-xl bg-amber-50 text-xs font-semibold text-amber-800 border border-amber-200 hover:bg-amber-100 cursor-pointer shadow-xs"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add Step</span>
                 </button>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {steps.map((step, idx) => (
-                  <div key={step.id} className="p-3 rounded-xl bg-vault-950 border border-white/10 space-y-2">
+                  <div key={step.id} className="p-4 rounded-2xl bg-white border border-stone-200 space-y-2 shadow-xs">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-vault-gold-400">
+                      <span className="text-xs font-bold text-amber-700">
                         STEP 0{step.stepNumber}
                       </span>
                       <button
                         type="button"
                         onClick={() => handleRemoveStep(idx)}
-                        className="text-red-400 hover:text-red-300 text-xs"
+                        className="text-rose-500 hover:text-rose-700 text-xs"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -482,22 +482,22 @@ export const CreateRecipeModal: React.FC = () => {
                         updated[idx].title = e.target.value;
                         setSteps(updated);
                       }}
-                      className="w-full px-3 py-1.5 rounded-lg bg-vault-900 border border-white/10 text-xs text-white"
+                      className="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-900 shadow-xs"
                     />
 
                     <textarea
                       rows={2}
-                      placeholder="Detailed technique instruction..."
+                      placeholder="Detailed cooking instructions..."
                       value={step.instruction}
                       onChange={(e) => {
                         const updated = [...steps];
                         updated[idx].instruction = e.target.value;
                         setSteps(updated);
                       }}
-                      className="w-full px-3 py-1.5 rounded-lg bg-vault-900 border border-white/10 text-xs text-white"
+                      className="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-900 shadow-xs"
                     />
 
-                    <div className="flex items-center space-x-3 text-xs font-mono text-vault-steel">
+                    <div className="flex items-center space-x-3 text-xs text-stone-500">
                       <span>Countdown Timer (Seconds):</span>
                       <input
                         type="number"
@@ -507,7 +507,7 @@ export const CreateRecipeModal: React.FC = () => {
                           updated[idx].timerDurationSec = Number(e.target.value);
                           setSteps(updated);
                         }}
-                        className="w-24 px-2 py-1 rounded bg-vault-900 border border-white/10 text-xs text-white"
+                        className="w-24 px-2 py-1.5 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-900 shadow-xs"
                       />
                     </div>
                   </div>
@@ -516,19 +516,19 @@ export const CreateRecipeModal: React.FC = () => {
             </div>
 
             {/* Submission Buttons */}
-            <div className="pt-6 border-t border-white/10 flex items-center justify-end space-x-3">
+            <div className="pt-6 border-t border-stone-200 flex items-center justify-end space-x-3">
               <button
                 type="button"
                 onClick={handleClose}
-                className="px-5 py-2.5 rounded-xl bg-vault-800 text-neutral-300 text-xs font-mono hover:bg-vault-700 cursor-pointer"
+                className="px-5 py-2.5 rounded-full bg-stone-100 text-stone-700 text-xs font-semibold hover:bg-stone-200 cursor-pointer"
               >
-                CANCEL
+                Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-vault-gold-500 hover:bg-vault-gold-400 text-vault-950 font-mono font-bold text-xs shadow-vault-glow cursor-pointer uppercase tracking-wider"
+                className="px-7 py-2.5 rounded-full bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-md shadow-amber-500/25 cursor-pointer uppercase tracking-wider"
               >
-                DEPOSIT IN VAULT
+                Save Recipe
               </button>
             </div>
           </form>

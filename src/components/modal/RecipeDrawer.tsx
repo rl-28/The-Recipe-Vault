@@ -17,7 +17,9 @@ import {
   Wine,
   Activity,
   Copy,
-  Layers
+  Clock,
+  Flame,
+  Scale
 } from 'lucide-react';
 import { useVault } from '../../context/VaultContext';
 import { StepTimer } from './StepTimer';
@@ -110,8 +112,7 @@ export const RecipeDrawer: React.FC = () => {
   const handleCopyShoppingList = () => {
     soundEngine.playTick(1300);
     const textLines = [
-      `=== THE RECIPE VAULT // SHOPPING LIST ===`,
-      `Protocol: ${selectedRecipe.title} (${selectedRecipe.vaultCode})`,
+      `=== ${selectedRecipe.title} ===`,
       `Yield: ${selectedRecipe.servings * servingsMultiplier} Servings (${servingsMultiplier}x)`,
       `----------------------------------------`,
       ...selectedRecipe.ingredients.map((ing) => {
@@ -119,7 +120,7 @@ export const RecipeDrawer: React.FC = () => {
         return `[ ] ${ing.name} - ${amt} ${ing.unit} ${ing.notes ? `(${ing.notes})` : ''}`;
       }),
       `----------------------------------------`,
-      `DEPT. MOLECULAR GASTRONOMY ARCHIVE`,
+      `From The Recipe Vault`,
     ];
     navigator.clipboard?.writeText(textLines.join('\n'));
     setCopiedList(true);
@@ -172,7 +173,7 @@ export const RecipeDrawer: React.FC = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleClose}
-          className="fixed inset-0 bg-vault-950/80 backdrop-blur-md transition-opacity"
+          className="fixed inset-0 bg-stone-900/40 backdrop-blur-sm transition-opacity"
         />
 
         {/* Slide-in High-Depth Panel */}
@@ -181,33 +182,34 @@ export const RecipeDrawer: React.FC = () => {
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={{ type: 'spring', damping: 28, stiffness: 220 }}
-          className="relative w-full max-w-2xl bg-vault-900 border-l border-white/10 shadow-2xl z-10 flex flex-col h-full overflow-hidden text-neutral-100"
+          className="relative w-full max-w-2xl bg-[#FCFAF7] border-l border-stone-200 shadow-2xl z-10 flex flex-col h-full overflow-hidden text-stone-900 font-sans"
         >
           {/* Top Floating Control Bar */}
           <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-auto">
-            <span className="px-3 py-1 rounded-md bg-vault-950/90 border border-vault-gold-500/40 text-[11px] font-mono text-vault-gold-400 font-bold tracking-widest backdrop-blur-md uppercase">
-              {selectedRecipe.vaultCode}
+            <span className="px-3.5 py-1 rounded-full bg-white/90 border border-stone-200/80 text-xs font-semibold text-amber-700 shadow-sm backdrop-blur-md">
+              {selectedRecipe.category}
             </span>
 
             <div className="flex items-center space-x-2">
               {/* Unit System Toggle */}
               <button
                 onClick={toggleUnitSystem}
-                className="px-2.5 py-1.5 rounded-full bg-vault-950/80 border border-white/20 text-vault-gold-400 text-xs font-mono backdrop-blur-md hover:border-vault-gold-500/40 transition-all cursor-pointer font-bold"
+                className="px-3 py-1.5 rounded-full bg-white/90 border border-stone-200 text-stone-700 text-xs font-semibold backdrop-blur-md hover:border-amber-400 hover:text-amber-700 transition-all cursor-pointer shadow-xs"
                 title="Toggle Metric / Imperial Units"
               >
-                {unitSystem.toUpperCase()}
+                <Scale className="w-3.5 h-3.5 inline mr-1 text-amber-500" />
+                <span>{unitSystem.toUpperCase()}</span>
               </button>
 
               {/* Bookmark Button */}
               <button
                 onClick={handleBookmarkToggle}
-                className={`p-2.5 rounded-full backdrop-blur-md border transition-all duration-200 cursor-pointer ${
+                className={`p-2.5 rounded-full backdrop-blur-md border transition-all duration-200 cursor-pointer shadow-xs ${
                   bookmarked
-                    ? 'bg-vault-gold-500 text-vault-950 border-vault-gold-400 shadow-neon-gold'
-                    : 'bg-vault-950/80 text-neutral-200 border-white/20 hover:text-vault-gold-400'
+                    ? 'bg-amber-500 text-white border-amber-600 shadow-sm'
+                    : 'bg-white/90 text-stone-600 border-stone-200 hover:text-amber-600 hover:bg-white'
                 }`}
-                title={bookmarked ? 'Remove from Private Vault' : 'Save to Private Vault'}
+                title={bookmarked ? 'Remove from Saved' : 'Save Recipe'}
               >
                 <Bookmark className={`w-4 h-4 ${bookmarked ? 'fill-current' : ''}`} />
               </button>
@@ -215,7 +217,7 @@ export const RecipeDrawer: React.FC = () => {
               {/* Share Button */}
               <button
                 onClick={handleShare}
-                className="p-2.5 rounded-full bg-vault-950/80 border border-white/20 text-neutral-200 hover:text-vault-gold-400 backdrop-blur-md transition-all cursor-pointer"
+                className="p-2.5 rounded-full bg-white/90 border border-stone-200 text-stone-600 hover:text-amber-600 hover:bg-white backdrop-blur-md transition-all cursor-pointer shadow-xs"
                 title="Copy Recipe Link"
               >
                 <Share2 className="w-4 h-4" />
@@ -224,8 +226,8 @@ export const RecipeDrawer: React.FC = () => {
               {/* Print Button */}
               <button
                 onClick={handlePrint}
-                className="p-2.5 rounded-full bg-vault-950/80 border border-white/20 text-neutral-200 hover:text-vault-gold-400 backdrop-blur-md transition-all cursor-pointer"
-                title="Print Protocol"
+                className="p-2.5 rounded-full bg-white/90 border border-stone-200 text-stone-600 hover:text-amber-600 hover:bg-white backdrop-blur-md transition-all cursor-pointer shadow-xs"
+                title="Print Recipe"
               >
                 <Printer className="w-4 h-4" />
               </button>
@@ -233,8 +235,8 @@ export const RecipeDrawer: React.FC = () => {
               {/* Close Button */}
               <button
                 onClick={handleClose}
-                className="p-2.5 rounded-full bg-vault-950/80 border border-white/20 text-neutral-200 hover:text-white hover:bg-vault-800 backdrop-blur-md transition-all cursor-pointer"
-                title="Close Protocol (Esc)"
+                className="p-2.5 rounded-full bg-white/90 border border-stone-200 text-stone-600 hover:text-stone-900 hover:bg-white backdrop-blur-md transition-all cursor-pointer shadow-xs"
+                title="Close (Esc)"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -244,27 +246,24 @@ export const RecipeDrawer: React.FC = () => {
           {/* Scrollable Content Body */}
           <div className="flex-1 overflow-y-auto overflow-x-hidden pt-0 pb-12">
             {/* Hero Image Section */}
-            <div className="relative w-full h-72 sm:h-80 bg-vault-950">
+            <div className="relative w-full h-72 sm:h-80 bg-stone-100">
               <img
                 src={selectedRecipe.imageUrl}
                 alt={selectedRecipe.title}
                 className="w-full h-full object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-vault-900 via-vault-900/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#FCFAF7] via-transparent to-transparent"></div>
 
               {/* Category & Origin Overlay at Bottom of Image */}
               <div className="absolute bottom-4 left-6 right-6 flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center space-x-2">
-                  <span className="px-2.5 py-1 rounded-md bg-vault-gold-500/20 border border-vault-gold-500/40 text-vault-gold-300 text-xs font-mono font-semibold uppercase">
-                    {selectedRecipe.category}
-                  </span>
-                  <span className="px-2.5 py-1 rounded-md bg-white/10 border border-white/15 text-neutral-200 text-xs font-mono uppercase">
-                    {selectedRecipe.difficulty}
+                  <span className="px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-semibold shadow-xs">
+                    {selectedRecipe.difficulty} Level
                   </span>
                 </div>
 
-                <div className="flex items-center space-x-1.5 text-xs font-mono text-vault-gold-400 bg-vault-950/70 px-2.5 py-1 rounded-md backdrop-blur-md">
-                  <ChefHat className="w-3.5 h-3.5" />
+                <div className="flex items-center space-x-1.5 text-xs font-medium text-stone-700 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-xs">
+                  <ChefHat className="w-3.5 h-3.5 text-amber-500" />
                   <span>{selectedRecipe.origin}</span>
                 </div>
               </div>
@@ -272,22 +271,22 @@ export const RecipeDrawer: React.FC = () => {
 
             {/* Notification Toast for Shared Link / Copied Shopping List */}
             {copiedLink && (
-              <div className="mx-6 mt-4 p-2.5 rounded-xl bg-vault-emerald/20 border border-vault-emerald/40 text-vault-emerald text-xs font-mono text-center">
-                ARCHIVE PROTOCOL LINK COPIED TO CLIPBOARD
+              <div className="mx-6 mt-4 p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium text-center shadow-xs">
+                Recipe link copied to clipboard!
               </div>
             )}
             {copiedList && (
-              <div className="mx-6 mt-4 p-2.5 rounded-xl bg-vault-gold-500/20 border border-vault-gold-500/40 text-vault-gold-300 text-xs font-mono text-center">
-                CHECKLIST EXPORTED TO CLIPBOARD
+              <div className="mx-6 mt-4 p-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium text-center shadow-xs">
+                Shopping list copied to clipboard!
               </div>
             )}
 
             {/* Header Text & Meta Badges */}
             <div className="px-6 pt-6">
-              <h2 className="text-2xl sm:text-3xl font-bold font-sans text-white tracking-tight leading-tight">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight leading-tight">
                 {selectedRecipe.title}
               </h2>
-              <p className="mt-2 text-sm text-vault-steel leading-relaxed font-light">
+              <p className="mt-2 text-sm text-stone-600 leading-relaxed font-normal">
                 {selectedRecipe.subtitle}
               </p>
 
@@ -295,60 +294,69 @@ export const RecipeDrawer: React.FC = () => {
               <div className="mt-5">
                 <button
                   onClick={handleStartCooking}
-                  className="w-full flex items-center justify-center space-x-3 py-3.5 px-6 rounded-xl bg-gradient-to-r from-vault-gold-500 via-amber-500 to-vault-gold-400 hover:from-vault-gold-400 hover:to-amber-400 text-vault-950 font-mono font-bold text-xs uppercase tracking-widest transition-all duration-300 cursor-pointer shadow-neon-gold hover:scale-[1.01]"
+                  className="w-full flex items-center justify-center space-x-3 py-4 px-6 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-sans font-semibold text-sm tracking-wide transition-all duration-300 cursor-pointer shadow-lg shadow-amber-500/25 hover:shadow-xl hover:scale-[1.01]"
                 >
-                  <PlayCircle className="w-5 h-5 fill-vault-950 text-vault-gold-400" />
-                  <span>LAUNCH HANDS-FREE CHEF HUD (VOICE & TIMERS)</span>
+                  <PlayCircle className="w-5 h-5 text-white" />
+                  <span>Start Guided Cooking Mode (Voice & Timers)</span>
                 </button>
               </div>
 
               {/* Telemetry Stat Bar */}
-              <div className="mt-6 grid grid-cols-3 gap-3 p-4 rounded-xl bg-vault-950/80 border border-white/5 font-mono text-center">
+              <div className="mt-6 grid grid-cols-3 gap-3 p-4 rounded-2xl bg-white border border-stone-200/80 shadow-xs text-center">
                 <div>
-                  <div className="text-[10px] text-vault-steel uppercase">PREP TIME</div>
-                  <div className="text-sm font-semibold text-neutral-100 mt-0.5">
+                  <div className="text-[11px] text-stone-400 font-medium uppercase tracking-wider flex items-center justify-center space-x-1">
+                    <Clock className="w-3 h-3 text-amber-500" />
+                    <span>PREP TIME</span>
+                  </div>
+                  <div className="text-sm font-bold text-stone-800 mt-1">
                     {selectedRecipe.prepTime}
                   </div>
                 </div>
-                <div className="border-x border-white/5">
-                  <div className="text-[10px] text-vault-steel uppercase">COOK TIME</div>
-                  <div className="text-sm font-semibold text-vault-gold-400 mt-0.5">
+                <div className="border-x border-stone-100">
+                  <div className="text-[11px] text-stone-400 font-medium uppercase tracking-wider flex items-center justify-center space-x-1">
+                    <Clock className="w-3 h-3 text-amber-600" />
+                    <span>COOK TIME</span>
+                  </div>
+                  <div className="text-sm font-bold text-amber-600 mt-1">
                     {selectedRecipe.cookTime}
                   </div>
                 </div>
                 <div>
-                  <div className="text-[10px] text-vault-steel uppercase">ENERGY</div>
-                  <div className="text-sm font-semibold text-vault-amber mt-0.5">
+                  <div className="text-[11px] text-stone-400 font-medium uppercase tracking-wider flex items-center justify-center space-x-1">
+                    <Flame className="w-3 h-3 text-orange-500" />
+                    <span>ENERGY</span>
+                  </div>
+                  <div className="text-sm font-bold text-orange-600 mt-1">
                     {selectedRecipe.calories} kcal
                   </div>
                 </div>
               </div>
 
               {/* Chef Molecular Gastronomy Notes */}
-              <div className="mt-6 p-4 rounded-xl bg-vault-gold-500/10 border border-vault-gold-500/25">
-                <div className="flex items-center space-x-2 text-xs font-mono text-vault-gold-400 font-bold uppercase tracking-wider mb-1">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Grand Master Culinary Note</span>
+              <div className="mt-6 p-4 rounded-2xl bg-amber-50/80 border border-amber-200/70">
+                <div className="flex items-center space-x-2 text-xs font-bold text-amber-800 uppercase tracking-wide mb-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Chef's Secret Technique</span>
                 </div>
-                <p className="text-xs text-neutral-200 font-light leading-relaxed italic">
+                <p className="text-xs text-stone-700 leading-relaxed italic">
                   "{selectedRecipe.chefNotes}"
                 </p>
               </div>
 
               {/* Sommelier Pairing Recommendation (if available) */}
               {selectedRecipe.winePairing && (
-                <div className="mt-6 p-4 rounded-xl bg-[#141224] border border-purple-500/30">
-                  <div className="flex items-center space-x-2 text-xs font-mono text-purple-300 font-bold uppercase tracking-wider mb-1.5">
-                    <Wine className="w-4 h-4 text-purple-400" />
-                    <span>Sommelier Pairing Reserve</span>
+                <div className="mt-6 p-5 rounded-2xl bg-purple-50/90 border border-purple-100">
+                  <div className="flex items-center space-x-2 text-xs font-bold text-purple-900 uppercase tracking-wide mb-1.5">
+                    <Wine className="w-4 h-4 text-purple-600" />
+                    <span>Sommelier Pairing Recommendation</span>
                   </div>
-                  <div className="text-sm font-semibold text-white">
+                  <div className="text-sm font-bold text-stone-900">
                     {selectedRecipe.winePairing.beverageName}
                   </div>
-                  <div className="text-xs font-mono text-purple-300/80 mt-0.5">
-                    {selectedRecipe.winePairing.type} // {selectedRecipe.winePairing.vintageOrOrigin}
+                  <div className="text-xs text-purple-700 font-medium mt-0.5">
+                    {selectedRecipe.winePairing.type} • {selectedRecipe.winePairing.vintageOrOrigin}
                   </div>
-                  <p className="mt-2 text-xs text-neutral-300 font-light leading-relaxed italic">
+                  <p className="mt-2 text-xs text-stone-600 leading-relaxed italic">
                     "{selectedRecipe.winePairing.tastingNote}"
                   </p>
                 </div>
@@ -356,34 +364,34 @@ export const RecipeDrawer: React.FC = () => {
 
               {/* Nutritional & Macronutrient Profile */}
               {selectedRecipe.nutrition && (
-                <div className="mt-6 p-4 rounded-xl bg-vault-950 border border-white/10">
-                  <div className="flex items-center space-x-2 text-xs font-mono text-vault-steel uppercase tracking-wider mb-3">
-                    <Activity className="w-3.5 h-3.5 text-vault-gold-400" />
-                    <span>Macronutrient Profile (Per Serving)</span>
+                <div className="mt-6 p-5 rounded-2xl bg-white border border-stone-200/80 shadow-xs">
+                  <div className="flex items-center space-x-2 text-xs font-bold text-stone-500 uppercase tracking-wider mb-3">
+                    <Activity className="w-3.5 h-3.5 text-emerald-500" />
+                    <span>Nutrition Profile (Per Serving)</span>
                   </div>
 
-                  <div className="grid grid-cols-4 gap-2 text-center font-mono">
-                    <div className="p-2 rounded-lg bg-vault-900 border border-white/5">
-                      <div className="text-[10px] text-vault-steel">CALORIES</div>
-                      <div className="text-sm font-bold text-vault-gold-400 mt-0.5">
+                  <div className="grid grid-cols-4 gap-2 text-center font-sans">
+                    <div className="p-2.5 rounded-xl bg-stone-50 border border-stone-100">
+                      <div className="text-[10px] text-stone-400 font-semibold uppercase">Calories</div>
+                      <div className="text-sm font-bold text-amber-600 mt-0.5">
                         {selectedRecipe.nutrition.calories}
                       </div>
                     </div>
-                    <div className="p-2 rounded-lg bg-vault-900 border border-white/5">
-                      <div className="text-[10px] text-vault-steel">PROTEIN</div>
-                      <div className="text-sm font-bold text-vault-cyan mt-0.5">
+                    <div className="p-2.5 rounded-xl bg-sky-50 border border-sky-100">
+                      <div className="text-[10px] text-sky-700 font-semibold uppercase">Protein</div>
+                      <div className="text-sm font-bold text-sky-800 mt-0.5">
                         {selectedRecipe.nutrition.proteinG}g
                       </div>
                     </div>
-                    <div className="p-2 rounded-lg bg-vault-900 border border-white/5">
-                      <div className="text-[10px] text-vault-steel">CARBS</div>
-                      <div className="text-sm font-bold text-amber-400 mt-0.5">
+                    <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-100">
+                      <div className="text-[10px] text-amber-700 font-semibold uppercase">Carbs</div>
+                      <div className="text-sm font-bold text-amber-800 mt-0.5">
                         {selectedRecipe.nutrition.carbsG}g
                       </div>
                     </div>
-                    <div className="p-2 rounded-lg bg-vault-900 border border-white/5">
-                      <div className="text-[10px] text-vault-steel">FAT</div>
-                      <div className="text-sm font-bold text-vault-emerald mt-0.5">
+                    <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-100">
+                      <div className="text-[10px] text-emerald-700 font-semibold uppercase">Fat</div>
+                      <div className="text-sm font-bold text-emerald-800 mt-0.5">
                         {selectedRecipe.nutrition.fatG}g
                       </div>
                     </div>
@@ -391,18 +399,18 @@ export const RecipeDrawer: React.FC = () => {
                 </div>
               )}
 
-              {/* Required Molecular & Kitchen Equipment */}
+              {/* Required Kitchen Equipment */}
               {selectedRecipe.equipment.length > 0 && (
                 <div className="mt-6">
-                  <div className="flex items-center space-x-2 text-xs font-mono text-vault-steel uppercase tracking-wider mb-2.5">
-                    <Wrench className="w-3.5 h-3.5 text-vault-gold-500/70" />
-                    <span>Specialized Equipment Required</span>
+                  <div className="flex items-center space-x-2 text-xs font-bold text-stone-500 uppercase tracking-wider mb-2.5">
+                    <Wrench className="w-3.5 h-3.5 text-amber-500" />
+                    <span>Equipment Needed</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {selectedRecipe.equipment.map((item, idx) => (
                       <span
                         key={idx}
-                        className="px-2.5 py-1 rounded-lg bg-vault-950 border border-white/10 text-xs font-mono text-neutral-300"
+                        className="px-3 py-1 rounded-xl bg-white border border-stone-200 text-xs text-stone-700 shadow-xs"
                       >
                         {item}
                       </span>
@@ -414,75 +422,76 @@ export const RecipeDrawer: React.FC = () => {
               {/* ============================================================ */}
               {/* SECTION: DYNAMIC INGREDIENT CHECKLIST & SCALER              */}
               {/* ============================================================ */}
-              <div className="mt-8 pt-6 border-t border-white/10">
+              <div className="mt-8 pt-6 border-t border-stone-200">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
                   <div>
                     <div className="flex items-center space-x-2">
-                      <ListChecks className="w-4 h-4 text-vault-gold-400" />
-                      <h3 className="text-base font-semibold text-white font-sans">
-                        Dynamic Ingredient Matrix
+                      <ListChecks className="w-4 h-4 text-amber-500" />
+                      <h3 className="text-base font-bold text-stone-900 font-sans">
+                        Ingredients & Prep
                       </h3>
                     </div>
-                    <p className="text-[11px] font-mono text-vault-steel mt-0.5">
+                    <p className="text-xs text-stone-500 mt-0.5">
                       {checkedIngredientsCount} of {totalIngredientsCount} items prepped ({Math.round(checklistProgress)}%)
                     </p>
                   </div>
 
                   {/* Serving Scaler Controls */}
-                  <div className="flex items-center space-x-2 bg-vault-950 border border-white/10 rounded-xl p-1 font-mono text-xs">
-                    <span className="px-2 text-vault-steel text-[11px]">YIELD:</span>
+                  <div className="flex items-center space-x-2 bg-white border border-stone-200 rounded-full p-1 text-xs shadow-xs">
+                    <span className="px-2.5 text-stone-500 font-medium text-[11px]">Yield:</span>
                     <button
                       onClick={() => handleScaleChange(servingsMultiplier - 0.5)}
                       disabled={servingsMultiplier <= 0.5}
-                      className="p-1 rounded-md bg-vault-900 hover:bg-vault-800 text-neutral-300 disabled:opacity-30 cursor-pointer"
+                      className="p-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 disabled:opacity-30 cursor-pointer"
                       title="Decrease Servings"
                     >
-                      <Minus className="w-3.5 h-3.5" />
+                      <Minus className="w-3 h-3" />
                     </button>
-                    <span className="px-2 font-bold text-vault-gold-400">
-                      {selectedRecipe.servings * servingsMultiplier}P ({servingsMultiplier}x)
+                    <span className="px-2 font-bold text-amber-600">
+                      {selectedRecipe.servings * servingsMultiplier} Servings ({servingsMultiplier}x)
                     </span>
                     <button
                       onClick={() => handleScaleChange(servingsMultiplier + 0.5)}
                       disabled={servingsMultiplier >= 8}
-                      className="p-1 rounded-md bg-vault-900 hover:bg-vault-800 text-neutral-300 disabled:opacity-30 cursor-pointer"
+                      className="p-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 disabled:opacity-30 cursor-pointer"
                       title="Increase Servings"
                     >
-                      <Plus className="w-3.5 h-3.5" />
+                      <Plus className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
 
                 {/* Progress Bar */}
-                <div className="w-full h-1.5 bg-vault-950 rounded-full overflow-hidden mb-4 border border-white/5">
+                <div className="w-full h-2 bg-stone-200 rounded-full overflow-hidden mb-4">
                   <div
-                    className="h-full bg-gradient-to-r from-vault-gold-500 to-vault-emerald transition-all duration-300"
+                    className="h-full bg-amber-500 transition-all duration-300"
                     style={{ width: `${checklistProgress}%` }}
                   />
                 </div>
 
                 {/* Quick actions for ingredients */}
-                <div className="flex items-center justify-between text-[11px] font-mono text-vault-steel mb-3">
+                <div className="flex items-center justify-between text-xs text-stone-500 mb-3">
                   <div className="flex items-center space-x-3">
                     <button
                       onClick={handleSelectAllIngredients}
-                      className="hover:text-vault-gold-300 transition-colors cursor-pointer"
+                      className="hover:text-amber-600 transition-colors cursor-pointer font-medium"
                     >
-                      [✓ Prepped All]
+                      Check All
                     </button>
+                    <span>•</span>
                     <button
                       onClick={handleResetIngredients}
-                      className="hover:text-neutral-300 transition-colors cursor-pointer"
+                      className="hover:text-stone-700 transition-colors cursor-pointer font-medium"
                     >
-                      [Reset Checklist]
+                      Reset
                     </button>
                   </div>
 
                   <button
                     onClick={handleCopyShoppingList}
-                    className="flex items-center space-x-1 hover:text-vault-gold-300 transition-colors cursor-pointer"
+                    className="flex items-center space-x-1 hover:text-amber-600 transition-colors cursor-pointer font-medium"
                   >
-                    <Copy className="w-3 h-3" />
+                    <Copy className="w-3.5 h-3.5 text-amber-500" />
                     <span>Copy Shopping List</span>
                   </button>
                 </div>
@@ -497,18 +506,18 @@ export const RecipeDrawer: React.FC = () => {
                       <div
                         key={ing.id}
                         onClick={() => handleToggleIngredient(ing.id)}
-                        className={`flex items-start justify-between p-3 rounded-xl border transition-all duration-200 cursor-pointer select-none ${
+                        className={`flex items-start justify-between p-3.5 rounded-2xl border transition-all duration-200 cursor-pointer select-none shadow-xs ${
                           isChecked
-                            ? 'bg-vault-950/40 border-vault-emerald/30 opacity-60'
-                            : 'bg-vault-950/90 border-white/10 hover:border-vault-gold-500/30'
+                            ? 'bg-emerald-50/60 border-emerald-200/80 opacity-70'
+                            : 'bg-white border-stone-200/80 hover:border-amber-300'
                         }`}
                       >
                         <div className="flex items-start space-x-3">
                           <div
-                            className={`w-5 h-5 rounded-md flex items-center justify-center mt-0.5 border transition-all ${
+                            className={`w-5 h-5 rounded-lg flex items-center justify-center mt-0.5 border transition-all ${
                               isChecked
-                                ? 'bg-vault-emerald text-vault-950 border-vault-emerald'
-                                : 'border-white/20 bg-vault-900'
+                                ? 'bg-emerald-500 text-white border-emerald-500'
+                                : 'border-stone-300 bg-white'
                             }`}
                           >
                             {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -516,16 +525,16 @@ export const RecipeDrawer: React.FC = () => {
 
                           <div>
                             <div
-                              className={`text-sm font-sans font-medium transition-all ${
+                              className={`text-sm font-medium transition-all ${
                                 isChecked
-                                  ? 'line-through text-vault-steel'
-                                  : 'text-neutral-200'
+                                  ? 'line-through text-stone-400'
+                                  : 'text-stone-800'
                               }`}
                             >
                               {ing.name}
                             </div>
                             {ing.notes && (
-                              <div className="text-[11px] text-vault-steel/80 font-mono italic">
+                              <div className="text-xs text-stone-400 italic mt-0.5">
                                 {ing.notes}
                               </div>
                             )}
@@ -533,7 +542,7 @@ export const RecipeDrawer: React.FC = () => {
                         </div>
 
                         {/* Scaled Quantity Tag */}
-                        <div className="font-mono text-xs font-semibold text-vault-gold-400 text-right whitespace-nowrap pl-2">
+                        <div className="text-xs font-bold text-amber-700 text-right whitespace-nowrap pl-2">
                           {formatted.amount} {formatted.unit}
                         </div>
                       </div>
@@ -545,49 +554,48 @@ export const RecipeDrawer: React.FC = () => {
               {/* ============================================================ */}
               {/* SECTION: STEP-BY-STEP CULINARY PROTOCOL WITH TIMERS          */}
               {/* ============================================================ */}
-              <div className="mt-8 pt-6 border-t border-white/10">
+              <div className="mt-8 pt-6 border-t border-stone-200">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center space-x-2">
-                    <ChefHat className="w-4 h-4 text-vault-gold-400" />
-                    <h3 className="text-base font-semibold text-white font-sans">
-                      Step-by-Step Culinary Protocol
+                    <ChefHat className="w-4 h-4 text-amber-500" />
+                    <h3 className="text-base font-bold text-stone-900 font-sans">
+                      Step-by-Step Instructions
                     </h3>
                   </div>
 
                   <button
                     onClick={handleStartCooking}
-                    className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-vault-gold-500/20 hover:bg-vault-gold-500/30 text-vault-gold-300 border border-vault-gold-500/40 text-xs font-mono transition-all cursor-pointer"
+                    className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-semibold transition-all cursor-pointer"
                   >
-                    <Layers className="w-3.5 h-3.5" />
-                    <span>HUD VIEW</span>
+                    <span>Full Screen HUD</span>
                   </button>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {selectedRecipe.steps.map((step) => (
                     <div
                       key={step.id}
-                      className="p-5 rounded-2xl bg-vault-950/70 border border-white/10 hover:border-vault-gold-500/20 transition-all"
+                      className="p-5 rounded-2xl bg-white border border-stone-200/80 shadow-xs hover:border-amber-300 transition-all"
                     >
                       {/* Step Header */}
                       <div className="flex items-center space-x-3 mb-2">
-                        <span className="w-7 h-7 rounded-lg bg-vault-gold-500/20 border border-vault-gold-500/40 text-vault-gold-400 flex items-center justify-center font-mono text-xs font-bold">
-                          0{step.stepNumber}
+                        <span className="w-7 h-7 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center text-xs font-bold">
+                          {step.stepNumber}
                         </span>
-                        <h4 className="text-sm font-semibold text-white font-sans">
+                        <h4 className="text-sm font-bold text-stone-900">
                           {step.title}
                         </h4>
                       </div>
 
                       {/* Step Instruction */}
-                      <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed pl-10 font-light">
+                      <p className="text-xs sm:text-sm text-stone-600 leading-relaxed pl-10">
                         {step.instruction}
                       </p>
 
                       {/* Step Chef Tip */}
                       {step.chefTip && (
-                        <div className="ml-10 mt-3 p-3 rounded-xl bg-vault-800/40 border border-white/5 text-[11px] font-mono text-vault-steel">
-                          <span className="text-vault-gold-400 font-bold mr-1.5">PROTOCOL NOTE:</span>
+                        <div className="ml-10 mt-3 p-3 rounded-xl bg-amber-50/70 border border-amber-100 text-xs text-amber-900">
+                          <span className="font-bold mr-1.5">Chef's Tip:</span>
                           {step.chefTip}
                         </div>
                       )}
@@ -610,25 +618,25 @@ export const RecipeDrawer: React.FC = () => {
           </div>
 
           {/* Bottom Action Footer */}
-          <div className="p-4 border-t border-white/10 bg-vault-950/90 flex items-center justify-between font-mono text-xs">
-            <div className="flex items-center space-x-2 text-vault-steel">
-              <CheckCircle className="w-4 h-4 text-vault-emerald" />
-              <span>CLASSIFIED MICHELIN ARCHIVE ACCESS</span>
+          <div className="p-4 border-t border-stone-200 bg-white flex items-center justify-between text-xs">
+            <div className="flex items-center space-x-2 text-stone-500 font-medium">
+              <CheckCircle className="w-4 h-4 text-emerald-500" />
+              <span>Verified Recipe Protocol</span>
             </div>
 
             <div className="flex items-center space-x-3">
               <button
                 onClick={handleStartCooking}
-                className="px-5 py-2 rounded-xl bg-vault-gold-500 hover:bg-vault-gold-400 text-vault-950 font-bold font-mono text-xs shadow-vault-glow transition-all cursor-pointer uppercase"
+                className="px-5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-md shadow-amber-500/20 transition-all cursor-pointer"
               >
-                COOK IN CHEF HUD
+                Cook in Guided HUD
               </button>
 
               <button
                 onClick={handleClose}
-                className="px-4 py-2 rounded-xl bg-vault-800 hover:bg-vault-700 text-neutral-200 border border-white/10 transition-all cursor-pointer font-medium"
+                className="px-4 py-2.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 transition-all cursor-pointer font-medium"
               >
-                CLOSE
+                Close
               </button>
             </div>
           </div>

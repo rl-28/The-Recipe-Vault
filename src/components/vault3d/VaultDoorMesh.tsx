@@ -15,57 +15,59 @@ export const VaultDoorMesh: React.FC<VaultDoorMeshProps> = ({
   boltsRef,
   glowIntensityRef,
 }) => {
-  // Vault Materials
-  const titaniumMaterial = useMemo(
+  // Fresh Warm & Sunlit Materials
+  const porcelainIvoryMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#161A24'),
-        metalness: 0.92,
-        roughness: 0.24,
+        color: new THREE.Color('#FAF7F2'),
+        metalness: 0.12,
+        roughness: 0.28,
       }),
     []
   );
 
-  const darkSteelMaterial = useMemo(
+  const brushedBrassMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#0A0C12'),
-        metalness: 0.95,
-        roughness: 0.35,
+        color: new THREE.Color('#E2BB62'),
+        metalness: 0.85,
+        roughness: 0.25,
+        emissive: new THREE.Color('#78450A'),
+        emissiveIntensity: 0.15,
       }),
     []
   );
 
-  const goldAccentMaterial = useMemo(
+  const polishedGoldMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#D4AF37'),
+        color: new THREE.Color('#F59E0B'),
         metalness: 0.88,
-        roughness: 0.22,
-        emissive: new THREE.Color('#3A2A08'),
+        roughness: 0.18,
+        emissive: new THREE.Color('#92400E'),
         emissiveIntensity: 0.2,
       }),
     []
   );
 
-  const chromeBoltMaterial = useMemo(
+  const warmSteelMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#D0D8E8'),
-        metalness: 0.98,
-        roughness: 0.15,
+        color: new THREE.Color('#E8E2D8'),
+        metalness: 0.75,
+        roughness: 0.2,
       }),
     []
   );
 
-  const glowingPedestalMaterial = useMemo(
+  const honeyCrystalMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#F5D061'),
-        metalness: 0.6,
+        color: new THREE.Color('#FDE68A'),
+        metalness: 0.3,
         roughness: 0.1,
         emissive: new THREE.Color('#F59E0B'),
-        emissiveIntensity: 0.9,
+        emissiveIntensity: 0.85,
       }),
     []
   );
@@ -81,7 +83,7 @@ export const VaultDoorMesh: React.FC<VaultDoorMeshProps> = ({
     }
   });
 
-  // Calculate 16 perimeter rivet positions
+  // Calculate 20 perimeter rivet positions
   const perimeterRivets = useMemo(() => {
     const rivets = [];
     const count = 20;
@@ -107,9 +109,9 @@ export const VaultDoorMesh: React.FC<VaultDoorMeshProps> = ({
         <mesh position={[0, 0, -1]}>
           <cylinderGeometry args={[2.5, 2.5, 4, 32, 1, true]} />
           <meshStandardMaterial
-            color="#080B12"
-            metalness={0.9}
-            roughness={0.4}
+            color="#F7F3EA"
+            metalness={0.2}
+            roughness={0.5}
             side={THREE.BackSide}
           />
         </mesh>
@@ -118,35 +120,35 @@ export const VaultDoorMesh: React.FC<VaultDoorMeshProps> = ({
         <mesh position={[0, 0, -3]}>
           <circleGeometry args={[2.5, 32]} />
           <meshStandardMaterial
-            color="#0B0E17"
-            metalness={0.9}
-            roughness={0.3}
+            color="#EFE9DD"
+            metalness={0.3}
+            roughness={0.4}
           />
         </mesh>
 
         {/* Floating Golden Recipe Crystal Tome */}
         <mesh ref={crystalRef} position={[0, 0, -1.2]}>
           <octahedronGeometry args={[0.55, 0]} />
-          <primitive object={glowingPedestalMaterial} attach="material" />
+          <primitive object={honeyCrystalMaterial} attach="material" />
         </mesh>
 
-        {/* Inner glow light */}
+        {/* Inner warm glow light */}
         <pointLight
           ref={glowIntensityRef}
           position={[0, 0, -1]}
-          color="#F5D061"
-          intensity={4}
-          distance={10}
+          color="#FDE68A"
+          intensity={5}
+          distance={12}
           decay={2}
         />
 
-        {/* Light beam / cone effect */}
+        {/* Soft light cone effect */}
         <mesh position={[0, 0, 0.5]} rotation={[Math.PI / 2, 0, 0]}>
           <cylinderGeometry args={[0.2, 2.4, 3.5, 32, 1, true]} />
           <meshBasicMaterial
             color="#F59E0B"
             transparent
-            opacity={0.08}
+            opacity={0.06}
             side={THREE.DoubleSide}
           />
         </mesh>
@@ -156,28 +158,28 @@ export const VaultDoorMesh: React.FC<VaultDoorMeshProps> = ({
       {/* 2. OUTER VAULT FRAME (Fixed Blast Frame)                      */}
       {/* ============================================================ */}
       <group position={[0, 0, 0]}>
-        {/* Massive Outer Heavy Ring */}
+        {/* Massive Outer Warm Porcelain & Brass Ring */}
         <mesh position={[0, 0, 0]}>
           <torusGeometry args={[2.65, 0.32, 24, 64]} />
-          <primitive object={darkSteelMaterial} attach="material" />
+          <primitive object={porcelainIvoryMaterial} attach="material" />
         </mesh>
 
         {/* Outer Ring Gold Bevel Trim */}
         <mesh position={[0, 0, 0.08]}>
           <torusGeometry args={[2.88, 0.04, 16, 64]} />
-          <primitive object={goldAccentMaterial} attach="material" />
+          <primitive object={polishedGoldMaterial} attach="material" />
         </mesh>
 
         <mesh position={[0, 0, 0.08]}>
           <torusGeometry args={[2.42, 0.04, 16, 64]} />
-          <primitive object={goldAccentMaterial} attach="material" />
+          <primitive object={brushedBrassMaterial} attach="material" />
         </mesh>
 
-        {/* Perimeter Industrial Rivets */}
+        {/* Perimeter Golden Rivets */}
         {perimeterRivets.map((rivet, idx) => (
           <mesh key={idx} position={[rivet.x, rivet.y, rivet.z]}>
             <cylinderGeometry args={[0.065, 0.065, 0.12, 16]} />
-            <primitive object={chromeBoltMaterial} attach="material" />
+            <primitive object={polishedGoldMaterial} attach="material" />
           </mesh>
         ))}
 
@@ -185,16 +187,16 @@ export const VaultDoorMesh: React.FC<VaultDoorMeshProps> = ({
         <group position={[-2.7, 0, 0.2]}>
           <mesh position={[0, 1.2, 0]}>
             <boxGeometry args={[0.35, 0.6, 0.5]} />
-            <primitive object={darkSteelMaterial} attach="material" />
+            <primitive object={brushedBrassMaterial} attach="material" />
           </mesh>
           <mesh position={[0, -1.2, 0]}>
             <boxGeometry args={[0.35, 0.6, 0.5]} />
-            <primitive object={darkSteelMaterial} attach="material" />
+            <primitive object={brushedBrassMaterial} attach="material" />
           </mesh>
           {/* Hinge Pin */}
           <mesh position={[0, 0, 0]}>
             <cylinderGeometry args={[0.1, 0.1, 3.2, 24]} />
-            <primitive object={chromeBoltMaterial} attach="material" />
+            <primitive object={polishedGoldMaterial} attach="material" />
           </mesh>
         </group>
       </group>
@@ -205,52 +207,50 @@ export const VaultDoorMesh: React.FC<VaultDoorMeshProps> = ({
       <group position={[-2.65, 0, 0]} ref={doorHingeRef}>
         {/* Offset door center relative to hinge pivot */}
         <group position={[2.65, 0, 0]}>
-          {/* Main Heavy Blast Door Disc */}
+          {/* Main Ivory Porcelain Blast Door Disc */}
           <mesh position={[0, 0, 0]}>
             <cylinderGeometry args={[2.4, 2.4, 0.35, 64]} />
-            {/* Rotate cylinder so face points along Z axis */}
-            <primitive object={titaniumMaterial} attach="material" />
+            <primitive object={porcelainIvoryMaterial} attach="material" />
           </mesh>
 
-          {/* Stepped Inner Layer */}
+          {/* Stepped Inner Layer with Warm Brushed Brass */}
           <mesh position={[0, 0, 0.18]}>
             <cylinderGeometry args={[2.1, 2.1, 0.08, 64]} />
-            <primitive object={darkSteelMaterial} attach="material" />
+            <primitive object={brushedBrassMaterial} attach="material" />
           </mesh>
 
           {/* Golden Concentric Rings */}
           <mesh position={[0, 0, 0.23]}>
             <torusGeometry args={[1.9, 0.03, 16, 64]} />
-            <primitive object={goldAccentMaterial} attach="material" />
+            <primitive object={polishedGoldMaterial} attach="material" />
           </mesh>
 
           <mesh position={[0, 0, 0.23]}>
             <torusGeometry args={[1.3, 0.025, 16, 64]} />
-            <primitive object={goldAccentMaterial} attach="material" />
+            <primitive object={polishedGoldMaterial} attach="material" />
           </mesh>
 
           <mesh position={[0, 0, 0.23]}>
             <torusGeometry args={[0.75, 0.03, 16, 64]} />
-            <primitive object={goldAccentMaterial} attach="material" />
+            <primitive object={polishedGoldMaterial} attach="material" />
           </mesh>
 
           {/* ============================================================ */}
           {/* 4. RADIAL LOCKING BOLTS (Retract into door)                  */}
           {/* ============================================================ */}
           <group ref={boltsRef}>
-            {/* 4 Heavy Steel Locking Bolts (Top, Right, Bottom, Left-Inner) */}
             {[0, 1, 2, 3].map((i) => {
               const angle = (i * Math.PI) / 2;
               return (
                 <group key={i} rotation={[0, 0, angle]}>
                   <mesh position={[2.25, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
                     <cylinderGeometry args={[0.12, 0.12, 0.6, 24]} />
-                    <primitive object={chromeBoltMaterial} attach="material" />
+                    <primitive object={warmSteelMaterial} attach="material" />
                   </mesh>
                   {/* Bolt Housing */}
                   <mesh position={[1.8, 0, 0.05]} rotation={[0, 0, Math.PI / 2]}>
                     <boxGeometry args={[0.22, 0.5, 0.18]} />
-                    <primitive object={goldAccentMaterial} attach="material" />
+                    <primitive object={polishedGoldMaterial} attach="material" />
                   </mesh>
                 </group>
               );
@@ -260,7 +260,7 @@ export const VaultDoorMesh: React.FC<VaultDoorMeshProps> = ({
           {/* Decorative Mechanical Cog Behind Wheel */}
           <mesh position={[0, 0, 0.24]} rotation={[0, 0, 0.2]}>
             <cylinderGeometry args={[0.6, 0.6, 0.04, 12]} />
-            <primitive object={darkSteelMaterial} attach="material" />
+            <primitive object={brushedBrassMaterial} attach="material" />
           </mesh>
 
           {/* ============================================================ */}
@@ -270,19 +270,19 @@ export const VaultDoorMesh: React.FC<VaultDoorMeshProps> = ({
             {/* Central Wheel Hub */}
             <mesh position={[0, 0, 0.06]}>
               <cylinderGeometry args={[0.3, 0.35, 0.18, 32]} />
-              <primitive object={darkSteelMaterial} attach="material" />
+              <primitive object={brushedBrassMaterial} attach="material" />
             </mesh>
 
             {/* Gold Central Emblem Cap */}
             <mesh position={[0, 0, 0.16]}>
               <cylinderGeometry args={[0.18, 0.18, 0.06, 32]} />
-              <primitive object={goldAccentMaterial} attach="material" />
+              <primitive object={polishedGoldMaterial} attach="material" />
             </mesh>
 
             {/* Outer Circular Hand-Wheel Ring */}
             <mesh position={[0, 0, 0.08]}>
               <torusGeometry args={[0.95, 0.05, 20, 48]} />
-              <primitive object={goldAccentMaterial} attach="material" />
+              <primitive object={polishedGoldMaterial} attach="material" />
             </mesh>
 
             {/* 6 Wheel Spokes */}
@@ -293,17 +293,17 @@ export const VaultDoorMesh: React.FC<VaultDoorMeshProps> = ({
                   {/* Spoke Rod */}
                   <mesh position={[0.48, 0, 0.08]} rotation={[0, 0, Math.PI / 2]}>
                     <cylinderGeometry args={[0.035, 0.035, 0.95, 16]} />
-                    <primitive object={titaniumMaterial} attach="material" />
+                    <primitive object={porcelainIvoryMaterial} attach="material" />
                   </mesh>
                   {/* Outer Spoke Handle Grip */}
                   <mesh position={[1.1, 0, 0.12]} rotation={[Math.PI / 2, 0, 0]}>
                     <cylinderGeometry args={[0.04, 0.045, 0.22, 16]} />
-                    <primitive object={chromeBoltMaterial} attach="material" />
+                    <primitive object={warmSteelMaterial} attach="material" />
                   </mesh>
                   {/* Handle Gold Tip */}
                   <mesh position={[1.22, 0, 0.12]}>
                     <sphereGeometry args={[0.055, 16, 16]} />
-                    <primitive object={goldAccentMaterial} attach="material" />
+                    <primitive object={polishedGoldMaterial} attach="material" />
                   </mesh>
                 </group>
               );
@@ -314,11 +314,11 @@ export const VaultDoorMesh: React.FC<VaultDoorMeshProps> = ({
           <group position={[0, 1.45, 0.2]}>
             <mesh>
               <boxGeometry args={[1.1, 0.35, 0.04]} />
-              <primitive object={darkSteelMaterial} attach="material" />
+              <primitive object={porcelainIvoryMaterial} attach="material" />
             </mesh>
             <mesh position={[0, 0, 0.025]}>
               <boxGeometry args={[1.02, 0.28, 0.02]} />
-              <primitive object={goldAccentMaterial} attach="material" />
+              <primitive object={polishedGoldMaterial} attach="material" />
             </mesh>
           </group>
         </group>

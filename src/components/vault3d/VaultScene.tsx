@@ -271,43 +271,41 @@ export const VaultScene: React.FC<VaultSceneProps> = ({
         }}
         dpr={[1, 2]}
       >
-        {/* Environment map for realistic metallic reflection */}
-        <Environment preset="city" />
+        {/* Warm Studio Environment for realistic golden & porcelain reflections */}
+        <Environment preset="sunset" />
 
-        {/* Ambient Dark Fill Light */}
-        <ambientLight intensity={0.4} color="#556B8D" />
+        {/* Ambient Soft Sunlit Fill Light */}
+        <ambientLight intensity={0.9} color="#FFFBF5" />
 
-        {/* Key Spotlight focusing on the Vault Center */}
-        <spotLight
-          position={[4, 6, 8]}
-          angle={0.5}
-          penumbra={0.8}
-          intensity={3.5}
-          color="#FFF8E7"
+        {/* Key Warm Sunlight from Top-Right */}
+        <directionalLight
+          position={[5, 10, 5]}
+          intensity={1.8}
+          color="#FFF7ED"
           castShadow
         />
 
-        {/* Secondary Cool Rim Light on Left */}
+        {/* Soft Front Accent Light focusing on the Vault Center */}
         <spotLight
-          position={[-7, 2, 5]}
-          angle={0.6}
-          penumbra={1}
-          intensity={2.2}
-          color="#38BDF8"
+          position={[4, 6, 8]}
+          angle={0.55}
+          penumbra={0.8}
+          intensity={1.6}
+          color="#FFF5EB"
         />
 
-        {/* Warm Golden Bottom Floor Reflection */}
-        <directionalLight position={[0, -5, 3]} intensity={0.8} color="#D4AF37" />
+        {/* Warm Honey Bottom Floor Reflection */}
+        <directionalLight position={[0, -5, 3]} intensity={0.6} color="#FBBF24" />
 
-        {/* Floating Golden Embers / Dust Particles */}
-        <Float speed={1.5} rotationIntensity={0.6} floatIntensity={0.8}>
+        {/* Floating Golden Dust Particles */}
+        <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.6}>
           <Sparkles
-            count={60}
-            scale={7}
-            size={2.5}
-            speed={0.4}
-            color="#D4AF37"
-            opacity={0.6}
+            count={45}
+            scale={6.5}
+            size={2.2}
+            speed={0.3}
+            color="#F59E0B"
+            opacity={0.45}
           />
         </Float>
 

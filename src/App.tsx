@@ -33,13 +33,13 @@ export const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-vault-950 text-neutral-100 overflow-x-hidden font-sans select-none">
+    <div className="relative min-h-screen bg-[#FCFAF7] text-stone-900 overflow-x-hidden font-sans select-none">
       {/* ============================================================ */}
       {/* 1. 3D WEBGL HERO CANVAS (Always active / responsive)          */}
       {/* ============================================================ */}
       <div
         className={`fixed inset-0 transition-opacity duration-1000 ${
-          viewMode === 'interior' ? 'opacity-25 pointer-events-none' : 'opacity-100'
+          viewMode === 'interior' ? 'opacity-20 pointer-events-none' : 'opacity-100'
         }`}
       >
         <VaultScene
@@ -51,7 +51,7 @@ export const AppContent: React.FC = () => {
       {/* ============================================================ */}
       {/* 2. AMBIENT BACKGROUND GLOW & NOISE VIGNETTE                   */}
       {/* ============================================================ */}
-      <div className="fixed inset-0 pointer-events-none bg-radial-vignette opacity-70 z-0"></div>
+      <div className="fixed inset-0 pointer-events-none bg-radial-vignette opacity-50 z-0"></div>
 
       {/* ============================================================ */}
       {/* 3. MAIN APPLICATION VIEWS (Landing vs Inner Vault)            */}
@@ -89,14 +89,14 @@ export const AppContent: React.FC = () => {
             </div>
 
             {/* Dashboard Footer */}
-            <footer className="w-full border-t border-white/5 py-8 mt-12 text-center text-xs font-mono text-vault-steel/60">
+            <footer className="w-full border-t border-stone-200/80 py-8 mt-12 text-center text-xs font-sans text-stone-500 bg-white/40 backdrop-blur-sm">
               <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div className="flex items-center space-x-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-vault-gold-400"></span>
-                  <span>THE RECIPE VAULT // CRYOGENIC ARCHIVE v2.4</span>
+                  <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                  <span className="font-semibold text-stone-700">The Recipe Vault • Culinary Sanctuary</span>
                 </div>
                 <div>
-                  ALL PROTOCOLS VERIFIED FOR HIGH-PRECISION KITCHENS
+                  Handcrafted with joy, precision, and love for cooking
                 </div>
               </div>
             </footer>

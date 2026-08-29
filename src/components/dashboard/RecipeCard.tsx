@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Clock, Flame, Users, Bookmark, ChefHat, ChevronRight, Wine } from 'lucide-react';
+import { Clock, Flame, Users, Bookmark, ChefHat, ChevronRight, Wine, Sparkles } from 'lucide-react';
 import type { Recipe } from '../../types/recipe';
 import { useVault } from '../../context/VaultContext';
 import { soundEngine } from '../../utils/soundEngine';
@@ -29,8 +29,8 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, index }) => {
     // 3D Tilt calculation
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -9;
-    const rotateY = ((x - centerX) / centerX) * 9;
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
 
     setTilt({ rotateX, rotateY });
   };
@@ -50,11 +50,11 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, index }) => {
     toggleBookmark(recipe.id);
   };
 
-  // Difficulty badge colors
+  // Difficulty badge colors in soft pastels
   const difficultyStyle = {
-    Master: 'bg-vault-gold-500/15 text-vault-gold-400 border-vault-gold-500/30',
-    Advanced: 'bg-vault-cyan/15 text-vault-cyan border-vault-cyan/30',
-    Intermediate: 'bg-vault-emerald/15 text-vault-emerald border-vault-emerald/30',
+    Master: 'bg-amber-50 text-amber-800 border-amber-200/80',
+    Advanced: 'bg-sky-50 text-sky-800 border-sky-200/80',
+    Intermediate: 'bg-emerald-50 text-emerald-800 border-emerald-200/80',
   }[recipe.difficulty];
 
   return (
@@ -74,48 +74,49 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, index }) => {
           transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale3d(1, 1, 1)`,
           transition: 'transform 0.15s ease-out, box-shadow 0.3s ease',
         }}
-        className="group relative flex flex-col h-full rounded-2xl vault-glass-card border border-white/10 hover:border-vault-gold-500/50 hover:shadow-vault-glow cursor-pointer overflow-hidden transition-all duration-300 vault-card-specular select-none"
+        className="group relative flex flex-col h-full rounded-3xl bg-white p-4 border border-stone-100 shadow-md hover:shadow-xl hover:-translate-y-1 cursor-pointer overflow-hidden transition-all duration-300 vault-card-specular select-none"
       >
-        {/* Top Image Container with Visual Depth */}
-        <div className="relative w-full h-56 overflow-hidden bg-vault-950">
+        {/* Top Image Container with Rounded Corners */}
+        <div className="relative w-full h-56 overflow-hidden rounded-2xl bg-stone-100">
           <img
             src={recipe.imageUrl}
             alt={recipe.title}
             loading="lazy"
-            className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+            className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-700 ease-out"
           />
 
-          {/* Vignette Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-vault-900 via-vault-900/30 to-transparent"></div>
+          {/* Subtle Vignette Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
 
-          {/* Top Badges: Vault Code & Bookmark */}
+          {/* Top Badges: Category & Bookmark */}
           <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-            <span className="px-2.5 py-1 rounded-md bg-vault-950/80 border border-vault-gold-500/30 backdrop-blur-md text-[10px] font-mono text-vault-gold-400 font-semibold tracking-widest uppercase">
-              {recipe.vaultCode}
+            <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-sans font-semibold text-stone-800 shadow-xs">
+              {recipe.category}
             </span>
 
             <button
               onClick={handleBookmarkClick}
-              className={`p-2 rounded-full backdrop-blur-md border transition-all duration-200 cursor-pointer ${
+              className={`p-2 rounded-full backdrop-blur-md transition-all duration-200 cursor-pointer shadow-xs ${
                 bookmarked
-                  ? 'bg-vault-gold-500 text-vault-950 border-vault-gold-400 shadow-neon-gold scale-110'
-                  : 'bg-vault-900/80 text-neutral-300 border-white/15 hover:text-vault-gold-400 hover:border-vault-gold-500/40'
+                  ? 'bg-amber-500 text-white scale-110 shadow-md'
+                  : 'bg-white/90 text-stone-600 hover:text-amber-600 hover:bg-white'
               }`}
-              title={bookmarked ? 'Remove from Private Vault' : 'Save to Private Vault'}
+              title={bookmarked ? 'Remove from Saved' : 'Save Recipe'}
               aria-label="Bookmark Recipe"
             >
               <Bookmark className={`w-3.5 h-3.5 ${bookmarked ? 'fill-current' : ''}`} />
             </button>
           </div>
 
-          {/* Bottom of Image: Category & Difficulty */}
+          {/* Bottom of Image: Origin & Difficulty */}
           <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-            <span className="text-[11px] font-mono text-neutral-300/90 font-medium tracking-wide uppercase">
-              {recipe.category}
+            <span className="text-xs font-sans text-white/90 font-medium tracking-wide flex items-center space-x-1 drop-shadow-sm">
+              <ChefHat className="w-3.5 h-3.5 text-amber-300" />
+              <span className="truncate">{recipe.origin}</span>
             </span>
 
             <span
-              className={`px-2.5 py-0.5 rounded-full border text-[10px] font-mono font-semibold uppercase tracking-wider ${difficultyStyle}`}
+              className={`px-2.5 py-0.5 rounded-full border text-[11px] font-sans font-semibold tracking-wide ${difficultyStyle}`}
             >
               {recipe.difficulty}
             </span>
@@ -123,18 +124,13 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, index }) => {
         </div>
 
         {/* Content Section */}
-        <div className="flex flex-col flex-1 p-5 justify-between space-y-4">
+        <div className="flex flex-col flex-1 pt-4 justify-between space-y-3">
           <div>
-            <div className="flex items-center space-x-1.5 text-xs text-vault-gold-400/90 font-mono mb-1.5">
-              <ChefHat className="w-3.5 h-3.5 text-vault-gold-400" />
-              <span className="truncate">{recipe.origin}</span>
-            </div>
-
-            <h3 className="text-lg font-semibold text-white group-hover:text-vault-gold-300 transition-colors duration-200 line-clamp-1 font-sans">
+            <h3 className="text-lg font-bold text-stone-900 group-hover:text-amber-600 transition-colors duration-200 line-clamp-1 font-sans">
               {recipe.title}
             </h3>
 
-            <p className="mt-1.5 text-xs text-vault-steel line-clamp-2 leading-relaxed font-light">
+            <p className="mt-1 text-xs text-stone-500 line-clamp-2 leading-relaxed font-normal">
               {recipe.subtitle}
             </p>
           </div>
@@ -144,13 +140,13 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, index }) => {
             {recipe.flavorProfile.slice(0, 3).map((flavor, idx) => (
               <span
                 key={idx}
-                className="px-2 py-0.5 rounded-md bg-white/5 border border-white/5 text-[10px] font-mono text-neutral-300"
+                className="px-2.5 py-1 rounded-lg bg-stone-50 border border-stone-100 text-[11px] font-sans text-stone-600"
               >
                 {flavor}
               </span>
             ))}
             {recipe.winePairing && (
-              <span className="px-2 py-0.5 rounded-md bg-purple-950/50 border border-purple-500/30 text-[10px] font-mono text-purple-300 flex items-center space-x-1">
+              <span className="px-2 py-0.5 rounded-lg bg-purple-50 border border-purple-100 text-[11px] font-sans text-purple-700 flex items-center space-x-1">
                 <Wine className="w-2.5 h-2.5" />
                 <span>Pairing</span>
               </span>
@@ -158,36 +154,37 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, index }) => {
           </div>
 
           {/* Metadata Footer: Prep, Cook Time, Yield */}
-          <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono text-vault-steel">
+          <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs font-sans text-stone-500">
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-1" title="Cooking Time">
-                <Clock className="w-3.5 h-3.5 text-vault-gold-400/80" />
+              <div className="flex items-center space-x-1 font-medium" title="Cooking Time">
+                <Clock className="w-3.5 h-3.5 text-amber-500" />
                 <span>{recipe.cookTime}</span>
               </div>
-              <div className="flex items-center space-x-1" title="Calories">
-                <Flame className="w-3.5 h-3.5 text-vault-amber" />
+              <div className="flex items-center space-x-1 font-medium" title="Calories">
+                <Flame className="w-3.5 h-3.5 text-orange-500" />
                 <span>{recipe.calories} kcal</span>
               </div>
-              <div className="flex items-center space-x-1" title="Servings">
-                <Users className="w-3.5 h-3.5 text-vault-steel" />
+              <div className="flex items-center space-x-1 font-medium" title="Servings">
+                <Users className="w-3.5 h-3.5 text-stone-400" />
                 <span>{recipe.servings}P</span>
               </div>
             </div>
 
-            {/* Slide-in Action indicator */}
-            <div className="flex items-center text-vault-gold-400 text-[11px] font-medium group-hover:translate-x-1 transition-transform duration-200">
-              <span>PROTOCOL</span>
+            {/* View Recipe Action */}
+            <div className="flex items-center text-amber-600 text-xs font-semibold group-hover:translate-x-1 transition-transform duration-200">
+              <span>View</span>
               <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
             </div>
           </div>
         </div>
 
-        {/* Classified Strip Indicator */}
+        {/* Signature Ribbon */}
         {recipe.isClassified && (
-          <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none overflow-hidden">
-            <div className="absolute transform rotate-45 bg-vault-gold-500/20 text-vault-gold-300 text-[8px] font-mono font-bold tracking-widest text-center py-0.5 right-[-35px] top-[18px] w-[120px] border-y border-vault-gold-500/40">
-              TOP SECRET
-            </div>
+          <div className="absolute top-2 right-2 pointer-events-none">
+            <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold shadow-xs">
+              <Sparkles className="w-2.5 h-2.5" />
+              <span>Signature</span>
+            </span>
           </div>
         )}
       </div>
